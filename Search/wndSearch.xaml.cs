@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GroupProject
+namespace GroupProject.Search
 {
     /// <summary>
-    /// Interaction logic for SearchWindow.xaml
+    /// Interaction logic for wndSearch.xaml
     /// </summary>
-    public partial class SearchWindow : Window
+    public partial class wndSearch : Window
     {
-        public SearchWindow()
+        public wndSearch()
         {
             InitializeComponent();
         }
