@@ -8,6 +8,8 @@
         Title="wndMain" Height="450" Width="800">
     <Grid>
         <Label x:Name="lblTest" Content="This is main window" HorizontalAlignment="Left" Margin="250,129,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_Cancel" Content="Button" HorizontalAlignment="Left" Margin="393,337,0,0" VerticalAlignment="Top" Height="50" Width="98"/>
+
 
     </Grid>
 </Window>
