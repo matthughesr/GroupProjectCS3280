@@ -1,0 +1,6 @@
+---------------Notes for main window page------------
+
+
+-- "search for invoice" menu option will take you to search window when clicked
+-- "update items" menu option will allow the user to update a def table that contains the items
+-- The data grid will show the info on the invoice
