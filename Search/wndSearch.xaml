@@ -6,7 +6,72 @@
         xmlns:local="clr-namespace:GroupProject.Search"
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800">
+    <!-- MAIN GRID -->
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- SUB GRID LEFT COLUMN -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <Label Content="Search Type" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Slider x:Name="searchTypeSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Background="Silver" Maximum="1" ValueChanged="sliderClick"/>
+                </StackPanel>
+            </Grid>
+
+
+            <Label x:Name="searchTypeLabel" Content="Via Invoice Number" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Grid.Row="1"/>
+            <!-- SEARCH VIA INVOICE NUMBER -->
+            <GroupBox x:Name="invoiceGroupBox" Grid.Row="1" Margin="5,30" Background="GhostWhite" IsEnabled="True" Opacity="100" Visibility="Visible">
+                <StackPanel>
+                    <Label Content="Input Invoice Number:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="invoiceNumberTextBox" HorizontalContentAlignment="Center"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20, 0" TextWrapping="Wrap" Text="" Height="32"/>
+                    <Button x:Name="searchButtonInvoice" Content="Search" Margin="10,4" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="cancelButtonInvoice" Content="Cancel" Margin="10,4" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </GroupBox>
+            <!-- SEARCH VIA ITEM CODE -->
+            <GroupBox x:Name="itemCodeGroupBox" Grid.Row="1" Margin="5,30" Background="GhostWhite" IsEnabled="False" Opacity="100" Visibility="Collapsed">
+                <StackPanel>
+                    <Label Content="Input Item Code:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="itemCodeTextBox" HorizontalContentAlignment="Center"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20, 0" TextWrapping="Wrap" Text="" Height="32"/>
+                    <Button x:Name="searchButtonItemCode" Content="Search" Margin="10,4" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="cancelButtonItemCode" Content="Cancel" Margin="10,4" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </GroupBox>
+
+
+        </Grid>
+
+        <!-- SUB GRID RIGHT COLUMN -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Search Results" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50"/>
+
+            <TextBox x:Name="searchResultsTextBox" Grid.Row="1" Margin="15" Background="GhostWhite"/>
+        </Grid>
     </Grid>
 </Window>
