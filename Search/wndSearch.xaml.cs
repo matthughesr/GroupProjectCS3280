@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -67,6 +68,61 @@ namespace GroupProject.Search
             }
         }
 
-        
+        private void searchButtonInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: BULLET PROOF INVOICE NUMBER DATA
+            try
+            {
+                searchResultsTextBox.Text = ""; // Clear text box
+
+                string invoiceNumber = invoiceNumberTextBox.Text;
+
+                List<clsInvoice> invoiceList = clsSearchLogic.searchViaInvoice(invoiceNumber);
+
+                StringBuilder sb = new StringBuilder();
+
+                foreach (clsInvoice invoice in invoiceList)
+                {
+                    sb.AppendLine($"Invoice ID: {invoice.invoiceNumber}, Date: {invoice.invoiceDate}, Total: {invoice.totalCost}, Line Item Num: {invoice.lineItemNum}");
+                }
+
+                searchResultsTextBox.Text = sb.ToString();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void searchButtonItemCode_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: BULLET PROOF INVOICE NUMBER DATA
+            try
+            {
+                searchResultsTextBox.Text = ""; // Clear text box
+
+                string itemCode = invoiceNumberTextBox.Text;
+
+                List<clsItemCode> itemCodeList = clsSearchLogic.searchViaItemCode(itemCode);
+
+                StringBuilder sb = new StringBuilder();
+
+                foreach (clsItemCode Items in itemCodeList)
+                {
+                    sb.AppendLine($"Item Code: {Items.itemCode}, line item number: {Items.lineItemNum}, Item Description: {Items.itemDesc}, Cost: {Items.cost}");
+                }
+
+                searchResultsTextBox.Text = sb.ToString();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
