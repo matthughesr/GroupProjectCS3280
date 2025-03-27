@@ -23,5 +23,31 @@ namespace GroupProject.Items
         {
             InitializeComponent();
         }
+
+        private void btn_AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            // add item clicked enables text box fields
+        }
+
+        private void btn_EditItem_Click(object sender, RoutedEventArgs e)
+        {
+            // edit item click puts selected item into txt box fields
+        }
+
+        private void btn_DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            // delete item checks if in an invoice, if not delete, else give user feedback
+        }
+
+        private void btn_SaveItem_Click(object sender, RoutedEventArgs e)
+        {
+            // only enabled when add item is clicked or edit item is clicked
+        }
+
+        private void btn_BackToHome_Click(object sender, RoutedEventArgs e)
+        {
+            // close window
+            // go back to main/home page
+        }
     }
 }
