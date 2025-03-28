@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace GroupProject.Main
 {
-    class clsMainBusinessLogic
+    class clsMainLogic
     {
 
 

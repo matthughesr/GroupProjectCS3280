@@ -60,8 +60,8 @@ namespace GroupProject.Search
         /// <param name="e"></param>
         private void cancelButtonInvoice_Click(object sender, RoutedEventArgs e ) 
         {
-            wndMain newWindow = new wndMain();
-            newWindow.Show();
+            //wndMain newWindow = new wndMain(); // I commented these lines out so we don't get additional main windows when you close the search window. -- Matt
+            //newWindow.Show();
 
             this.Close();
         }

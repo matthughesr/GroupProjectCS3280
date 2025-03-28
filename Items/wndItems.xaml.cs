@@ -46,7 +46,7 @@ namespace GroupProject.Items
 
         private void btn_BackToHome_Click(object sender, RoutedEventArgs e)
         {
-            // close window
+            this.Close(); // close window
             // go back to main/home page
         }
     }

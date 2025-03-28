@@ -1,4 +1,5 @@
-﻿using GroupProject.Search;
+﻿using GroupProject.Items;
+using GroupProject.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,26 @@ namespace GroupProject.Main
         {
             wndSearch searchWindow = new wndSearch();
 
-            searchWindow.Show();
+            this.Hide();
+            searchWindow.ShowDialog();
+            this.Show();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            wndItems itemsWindow = new wndItems();
+
+            this.Hide();
+            itemsWindow.ShowDialog();
+            this.Show();
+        }
+
+
+
+
+        //Invoice ID will be extracted from search window by a public property 
+        //
+
+        //
     }
 }
