@@ -31,8 +31,76 @@ namespace GroupProject.Main
             // throw;
         }
     }
+
+
+
+
+        // Have methods to execute sql statements
+
+
+
+
+
+        // Save invoice method to save invoice to database
+
+
+
+
+
+        //Method to get items from invoice
+
+
+
+
+
+        
+
+
+
+
+
+
+
     }
 
 
 
 }
+
+
+
+
+
+
+
+
+/*
+ 
+          try
+            {
+
+            }
+            catch (Exception ex)
+            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);}
+
+
+
+
+      
+
+
+
+            try
+            {
+              
+
+
+            }
+            catch (Exception ex)
+            { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
+
+
+
+ 
+ 
+ */

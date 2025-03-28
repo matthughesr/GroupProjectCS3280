@@ -48,7 +48,7 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SelectAllItemDesc()
+        public string SelectAllItem()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SelectLineItemsWithDesc(string sInvoiceNum)
+        public string SelectLineItems(string sInvoiceNum)
         {
             try
             {
@@ -107,25 +107,3 @@ namespace GroupProject.Main
 
 
 
-
-/*
- 
-          try
-            {
-
-            }
-            catch (Exception ex)
-            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);}
-
-
-
-
-            try
-            {
-
-            }
-            catch (Exception ex)
-            { clsHandleError.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
- 
- 
- */
