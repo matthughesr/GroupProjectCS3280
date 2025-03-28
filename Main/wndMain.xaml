@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Menu Margin="0,0,10,10">
             <MenuItem Header="Update Items"></MenuItem>
-            <MenuItem Header="Search for Invoice"></MenuItem>
+            <MenuItem Header="Search for Invoice" Click="openSearchWindow"></MenuItem>
 
         </Menu>
         <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0"/>

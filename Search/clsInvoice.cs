@@ -12,7 +12,11 @@ namespace GroupProject.Search
         public string invoiceNumber { get; set; }
         public string invoiceDate { get; set; }
         public string totalCost { get; set; }
-        public string lineItemNum { get; set; }
+
+        public override string ToString()
+        {
+            return $"NUMBER: {invoiceNumber}, DATE: {invoiceDate}, COST: {totalCost}";
+        }
 
     }
 }

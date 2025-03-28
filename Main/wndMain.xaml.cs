@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GroupProject.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,11 @@ namespace GroupProject.Main
             InitializeComponent();
         }
 
+        private void openSearchWindow(object sender , RoutedEventArgs e)
+        {
+            wndSearch searchWindow = new wndSearch();
+
+            searchWindow.Show();
+        }
     }
 }

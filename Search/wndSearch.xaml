@@ -18,6 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid>
@@ -31,12 +32,6 @@
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="1" Grid.Column="1">
-                    <Label Content="Search Type" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <Slider x:Name="searchTypeSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Background="Silver" Maximum="1" ValueChanged="sliderClick"/>
-                    <Label x:Name="searchTypeLabel" Content="Via Invoice Number" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Grid.Row="1"/>
-                </StackPanel>
             </Grid>
 
 
@@ -46,16 +41,7 @@
                     <Label Content="Input Invoice Number:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <TextBox x:Name="invoiceNumberTextBox" HorizontalContentAlignment="Center"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20, 0" TextWrapping="Wrap" Text="" Height="32"/>
                     <Button x:Name="searchButtonInvoice" Content="Search" Margin="10,4" HorizontalAlignment="Stretch" Click="searchButtonInvoice_Click"/>
-                    <Button x:Name="cancelButtonInvoice" Content="Cancel" Margin="10,4" HorizontalAlignment="Stretch"/>
-                </StackPanel>
-            </GroupBox>
-            <!-- SEARCH VIA ITEM CODE -->
-            <GroupBox x:Name="itemCodeGroupBox" Grid.Row="1" Margin="5,30" Background="GhostWhite" IsEnabled="False" Opacity="100" Visibility="Collapsed">
-                <StackPanel>
-                    <Label Content="Input Item Code:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="itemCodeTextBox" HorizontalContentAlignment="Center"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20, 0" TextWrapping="Wrap" Text="" Height="32"/>
-                    <Button x:Name="searchButtonItemCode" Content="Search" Margin="10,4" HorizontalAlignment="Stretch" Click="searchButtonItemCode_Click"/>
-                    <Button x:Name="cancelButtonItemCode" Content="Cancel" Margin="10,4" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="cancelButtonInvoice" Content="Cancel" Margin="10,4" HorizontalAlignment="Stretch" Click="cancelButtonInvoice_Click"/>
                 </StackPanel>
             </GroupBox>
 
@@ -70,8 +56,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Search Results" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50"/>
-
-            <TextBox x:Name="searchResultsTextBox" Grid.Row="1" Margin="15" Background="GhostWhite"/>
+            <ComboBox x:Name="searchResultsCombo" Grid.Row="1" Margin="10" Height="50" Width="auto" VerticalAlignment="Top" SelectionChanged="viewInvoiceInMain"/>
         </Grid>
     </Grid>
 </Window>

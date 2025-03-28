@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Windows.Controls.Primitives;
 
 
 /// CONTAINS ALL SQL STATEMENTS RELATED TO SEARCHING THE DATABASE
@@ -15,13 +17,6 @@ namespace GroupProject.Search
         {
         
         }
-
-        public string invoiceNumber { get; set; }
-        public string invoiceDate { get; set; }
-        public string totalCost { get; set; }
-        public string lineItemNum { get; set; }
-        public string itemDesc { get; set; }
-        public string cost { get; set; }
 
         /// <summary>
         /// A method that returns the query for all values from the invoices table
@@ -59,29 +54,42 @@ namespace GroupProject.Search
         /// <summary>
         /// A method that returns the query for a search for all values pertaining to an invoice number
         /// </summary>
-        /// <param name="invoiceNumber"></param>
-        /// <returns></returns>
+        /// <param name="invoiceNumber"> STRING </param>
+        /// <returns></returns> 
         public static string searchViaInvoice(string invoiceNumber)
         {
-            string query = @$"SELECT i.invoiceNum, i.InvoiceDate, i.TotalCost, li.LineItemNum 
+            string query = @$"SELECT * 
                            FROM Invoices i 
-                           INNER JOIN LineItems li ON i.InvoiceNum = li.InvoiceNum 
                            WHERE i.InvoiceNum = {invoiceNumber}";
 
             return query;
         }
 
-        /// <summary>
-        /// A method that returns the query for a search for all values pertaining to an item code
-        /// </summary>
-        /// <param name="itemCode"></param>
-        /// <returns></returns>
-        public static string searchViaItemCode(string itemCode)
+        public static string searchViaInvoiceAndDate(string invoiceNumber, string Date)
         {
-            string query = @$"SELECT li.ItemCode, li.LineItemNum, id.ItemDesc, id.Cost 
-                              FROM LineItems li 
-                              INNER JOIN ItemDesc id ON li.ItemCode = id.ItemCode
-                              WHERE li.ItemCode = {itemCode}";
+            string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date}";
+
+            return query;
+
+        }
+
+        public static string searchViaInvoiceDateAndCost(string invoiceNumber, string Date, string Cost) 
+        {
+            string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date} AND TotalCost = {Cost}";
+
+            return query;
+
+        }
+
+        public static string searchViaCost(string Cost)
+        {
+            string query = @$"SELECT * FROM Invoices WHERE TotalCost = {Cost}";
+            return query;
+        }
+
+        public static string searchViaDate(string Date)
+        {
+            string query = @$"SELECT * From Invoices WHERE InvoiceDate = {Date}";
 
             return query;
         }
