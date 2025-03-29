@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GroupProject.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -24,41 +26,25 @@ namespace GroupProject.Search
             InitializeComponent();
         }
 
+
         /// <summary>
-        /// Function that checks the search type slider and displays the correct group box
+        /// Event listenr for when the search button is clicked for invoice
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void sliderClick(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void searchButtonInvoice_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: BULLET PROOF INVOICE NUMBER DATA
             try
             {
-                double sliderValue = e.NewValue;
 
-                if (sliderValue == 1)
-                {
-                    // Hide invoice group box
-                    invoiceGroupBox.Visibility = Visibility.Hidden;
-                    invoiceGroupBox.IsEnabled = false;
+                string invoiceNumber = invoiceNumberTextBox.Text;
 
-                    // Show Item code group box
-                    itemCodeGroupBox.Visibility = Visibility.Visible;
-                    itemCodeGroupBox.IsEnabled = true;
+                List<clsInvoice> invoiceList = clsSearchLogic.searchViaInvoice(invoiceNumber);
 
-                    searchTypeLabel.Content = "Via Item Code";
-                }
-                else
-                {
-                    // Show invoice group box
-                    invoiceGroupBox.Visibility = Visibility.Visible;
-                    invoiceGroupBox.IsEnabled = true;
+                searchResultsCombo.ItemsSource = invoiceList;
+                searchResultsCombo.SelectedIndex = 0;
 
-                    // Hide Item code Group box
-                    itemCodeGroupBox.Visibility = Visibility.Hidden;
-                    itemCodeGroupBox.IsEnabled = false;
-
-                    searchTypeLabel.Content = "Via Invoice Number";
-                }
             }
             catch (Exception)
             {
@@ -66,7 +52,24 @@ namespace GroupProject.Search
                 throw;
             }
         }
-
         
+        /// <summary>
+        /// Event listener for when the cancel button is pressed. Closes search window and opens main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cancelButtonInvoice_Click(object sender, RoutedEventArgs e ) 
+        {
+            //wndMain newWindow = new wndMain(); // I commented these lines out so we don't get additional main windows when you close the search window. -- Matt
+            //newWindow.Show();
+
+            this.Close();
+        }
+
+        private void viewInvoiceInMain(object sender, SelectionChangedEventArgs e)
+        {
+            // Once selection is made pass list to main window for viewing
+        }
+
     }
 }
