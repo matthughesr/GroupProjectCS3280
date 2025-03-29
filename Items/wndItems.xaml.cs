@@ -47,8 +47,8 @@ namespace GroupProject.Items
         private void btn_BackToHome_Click(object sender, RoutedEventArgs e)
         {
             //show the main window
-            GroupProject.Main.wndMain mainWindow = new GroupProject.Main.wndMain();
-            mainWindow.Show();
+            //GroupProject.Main.wndMain mainWindow = new GroupProject.Main.wndMain();
+            //mainWindow.Show();
 
             // Close the current Items window
             this.Close();
