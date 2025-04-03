@@ -25,16 +25,32 @@
         <Button x:Name="btnCreateInvoice" Grid.Column="1" Content="Create Invoice" HorizontalAlignment="Left" Margin="47,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="btnCreateInvoice_Click"/>
         <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="217,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnEditInvoice_Click"/>
         <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="397,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="80" Click="btnSaveInvoice_Click"/>
-        <Label x:Name="lblInvoiceDate" Content="Invoice Date:" HorizontalAlignment="Left" Margin="10,19,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpInvoiceDatePicker" HorizontalAlignment="Left" Margin="102,21,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label x:Name="lblInvoiceNum" Content="Invoice Number:" HorizontalAlignment="Left" Margin="10,58,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label x:Name="lblTotalCost" Content="Invoice Total: $" HorizontalAlignment="Left" Margin="10,98,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label x:Name="lblItem" Content="Items:" HorizontalAlignment="Left" Margin="17,174,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbItems" HorizontalAlignment="Left" Margin="84,178,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" SelectionChanged="cbItems_SelectionChanged"/>
-        <Label x:Name="lblCost" Content="Cost: $" HorizontalAlignment="Left" Height="29" Margin="17,216,0,0" Grid.Row="2" VerticalAlignment="Top" Width="72"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="38,281,0,0" Grid.Row="2" VerticalAlignment="Top" Click="btnAddItem_Click"/>
-        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="144,281,0,0" Grid.Row="2" VerticalAlignment="Top" Click="btnRemoveItem_Click"/>
         <Label x:Name="lblTitle" Content="C# Landscaping" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="217" Background="#FF4A753B" Foreground="White" FontSize="20" HorizontalContentAlignment="Center"/>
+        <GroupBox x:Name="gbInvoiceInfo" Header="Invoice Info" Grid.Row="2" Margin="0,5,0,5">
+            <Grid x:Name="gridGroupBoxInvoice">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="34*"/>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="54*"/>
+                    <RowDefinition Height="47*"/>
+                    <RowDefinition Height="65*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="97*"/>
+                    <ColumnDefinition Width="128*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker x:Name="dpInvoiceDatePicker" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" Grid.Column="1" Height="24" Width="102"/>
+                <Label x:Name="lblInvoiceDate" Content="Invoice Date:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="78" Margin="3,14,0,0"/>
+                <Label x:Name="lblInvoiceNum" Content="Invoice Number:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Height="26" Width="209" Grid.ColumnSpan="2" Margin="3,0,0,0"/>
+                <Label x:Name="lblTotalCost" Content="Invoice Total: $" HorizontalAlignment="Left" Margin="3,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="209" Grid.ColumnSpan="2"/>
+                <Label x:Name="lblItem" Content="Items:" HorizontalAlignment="Left" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Top" Height="26" Width="42"/>
+                <ComboBox x:Name="cbItems" HorizontalAlignment="Left" Margin="0,13,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120" SelectionChanged="cbItems_SelectionChanged" Height="22" Grid.Column="1"/>
+                <Label x:Name="lblCost" Content="Cost: $" HorizontalAlignment="Left" Height="29" Margin="10,54,0,0" Grid.Row="3" VerticalAlignment="Top" Width="151" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="31,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnRemoveItem_Click" Grid.Column="1"/>
+                <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="13,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnAddItem_Click"/>
+            </Grid>
+        </GroupBox>
 
 
 

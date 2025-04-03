@@ -3,8 +3,10 @@ using GroupProject.Items;
 using GroupProject.Search;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,12 +27,21 @@ namespace GroupProject.Main
     {
         clsMainLogic clsMainLogic;
         clsGetItems clsGetItems;
-        
+
+        private List<clsItem> AllItems = new List<clsItem>();  // Holds all items (inventory)
+        private ObservableCollection<clsItem> InvoiceItems = new ObservableCollection<clsItem>();  // Holds only invoice items
+
 
         /// <summary>
         /// Public property for editing mode
         /// </summary>
         public bool bEditingMode {  get; set; }
+
+
+        /// <summary>
+        /// Public property for invoice total cost 
+        /// </summary>
+        public float fTotalCost {  get; set; }
 
         /// <summary>
         /// Default Constructor
@@ -44,7 +55,13 @@ namespace GroupProject.Main
                 clsMainLogic = new clsMainLogic();
                 clsGetItems = new clsGetItems();
 
+
+
                 cbItems.ItemsSource = clsGetItems.GetAllItems(); //bind combo box to getItems
+                dgInvoice.ItemsSource = InvoiceItems;   //bind data grid to show items added
+
+                gbInvoiceInfo.IsEnabled = false;
+
 
 
             }
@@ -112,8 +129,6 @@ namespace GroupProject.Main
                 clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
                 string sSelectedItemCost = SelectedItem.sItemCost;
 
-
-
                 lblCost.Content = "Cost: $" + sSelectedItemCost;
 
             //The Items combo box will be refreshed anytime the items window is closed. This will be done by setting it to null and then rebinding the combobox.
@@ -133,6 +148,10 @@ namespace GroupProject.Main
         {
             try
             {
+                bEditingMode = true;
+                fTotalCost = 0;
+                gbInvoiceInfo.IsEnabled = true;
+                lblInvoiceNum.Content = "Invoice Number: TBD";
 
             // Will remove the current invoice that is being viewed if any
             // Allow user to add items 
@@ -154,12 +173,13 @@ namespace GroupProject.Main
         {
             try
             {
+                gbInvoiceInfo.IsEnabled = true;
+                bEditingMode = true;
 
-
-            // Put main window into editing mode
-            // Allow user to addd items
-            // Allow user to edit invoice date
-            // Save info to database
+                // Put main window into editing mode
+                // Allow user to addd items
+                // Allow user to edit invoice date
+                // Save info to database
 
             }
             catch (Exception ex)
@@ -175,11 +195,12 @@ namespace GroupProject.Main
         {
             try
             {
+                gbInvoiceInfo.IsEnabled = false;
 
 
-            //Take main window out of editing mode. 
-            // Lock down window so no more changes can be made
-            // Save info to database
+                //Take main window out of editing mode. 
+                // Lock down window so no more changes can be made
+                // Save info to database
 
             }
             catch (Exception ex)
@@ -215,8 +236,17 @@ namespace GroupProject.Main
             try
             {
 
-            //Make sure its in editing mode
-            // Remove item from datagrid
+                //Make sure its in editing mode
+                // Remove item from datagrid
+
+                clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                if(InvoiceItems.Contains(SelectedItem))
+                {
+                    InvoiceItems.Remove(SelectedItem);
+                    fTotalCost -= float.Parse(SelectedItem.sItemCost);
+                    lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
+
+                }
 
 
             }
@@ -234,9 +264,16 @@ namespace GroupProject.Main
             try
             {
 
-            //Make sure its in editing mode
-            // Add item to data grid for viewing
+                //Make sure its in editing mode
+                // Add item to data grid for viewing
+                clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                if (!InvoiceItems.Contains(SelectedItem)) // Avoid duplicates
+                {
+                    InvoiceItems.Add(SelectedItem);
+                    fTotalCost += float.Parse(SelectedItem.sItemCost);
+                    lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
 
+                }
 
             }
             catch (Exception ex)
