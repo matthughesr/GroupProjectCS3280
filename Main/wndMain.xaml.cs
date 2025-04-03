@@ -1,4 +1,5 @@
-﻿using GroupProject.Items;
+﻿using GroupProject.Common;
+using GroupProject.Items;
 using GroupProject.Search;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace GroupProject.Main
     public partial class wndMain : Window
     {
         clsMainLogic clsMainLogic;
+        clsGetItems clsGetItems;
+        
 
         /// <summary>
         /// Public property for editing mode
@@ -39,8 +42,9 @@ namespace GroupProject.Main
                 InitializeComponent();
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 clsMainLogic = new clsMainLogic();
+                clsGetItems = new clsGetItems();
 
-
+                cbItems.ItemsSource = clsGetItems.GetAllItems(); //bind combo box to getItems
 
 
             }
@@ -105,7 +109,12 @@ namespace GroupProject.Main
         {
             try
             {
+                clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                string sSelectedItemCost = SelectedItem.sItemCost;
 
+
+
+                lblCost.Content = "Cost: $" + sSelectedItemCost;
 
             //The Items combo box will be refreshed anytime the items window is closed. This will be done by setting it to null and then rebinding the combobox.
 

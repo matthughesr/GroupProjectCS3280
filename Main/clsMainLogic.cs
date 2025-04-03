@@ -33,7 +33,6 @@ namespace GroupProject.Main
     }
 
 
-        //getallitems. reutrn list. Used to populate combo box. Can be seperate cls
         
         //saveinvoice(clsInvoice)
 

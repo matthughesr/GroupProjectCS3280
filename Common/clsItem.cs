@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace GroupProject.Common
 {
+    /// <summary>
+    /// This class represents an item object
+    /// </summary>
     internal class clsItem
     {
         /// <summary>
