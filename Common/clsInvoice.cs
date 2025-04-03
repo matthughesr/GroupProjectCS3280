@@ -8,5 +8,9 @@ namespace GroupProject.Common
 {
     internal class clsInvoice
     {
+        //invoice number
+        //invoice date
+        //total cost
+        //list<clsItems> list of all items on invoice
     }
 }

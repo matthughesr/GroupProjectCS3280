@@ -9,7 +9,7 @@ namespace GroupProject.Main
 {
     class clsMainSQL
     {
-    public string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
+    public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
     {
             try
             {
@@ -23,7 +23,7 @@ namespace GroupProject.Main
        }
 
 
-        public string InsertInvoices(string sInvoiceDate, string sTotalCost)
+        public static string InsertInvoices(string sInvoiceDate, string sTotalCost)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace GroupProject.Main
 
         }
 
-        public string SelectInvoiceByNumber(string sInvoiceNum)
+        public static string SelectInvoiceByNumber(string sInvoiceNum)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SelectAllItem()
+        public static string SelectAllItem()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SelectLineItems(string sInvoiceNum)
+        public static string SelectLineItems(string sInvoiceNum)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string DeleteLineItemsByInvoice(string sInvoiceNum)
+        public static string DeleteLineItemsByInvoice(string sInvoiceNum)
         {
             try
             {
