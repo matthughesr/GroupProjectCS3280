@@ -8,9 +8,23 @@ namespace GroupProject.Common
 {
     internal class clsInvoice
     {
-        //invoice number
-        //invoice date
-        //total cost
+        /// <summary>
+        /// Public property for invoice number
+        /// </summary>
+        public string sInvoiceNum {  get; set; }
+
+        /// <summary>
+        /// Public Property for invoice number
+        /// </summary>
+        public string sInvoiceDate { get; set; }
+
+        /// <summary>
+        /// Public property for invoice total cost
+        /// </summary>
+        public string sTotalCost { get; set; }
+
+
+
         //list<clsItems> list of all items on invoice
     }
 }
