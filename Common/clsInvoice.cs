@@ -23,8 +23,9 @@ namespace GroupProject.Common
         /// </summary>
         public string sTotalCost { get; set; }
 
-
-
-        //list<clsItems> list of all items on invoice
+        /// <summary>
+        /// public property of all items on invoice 
+        /// </summary>
+        public List<clsInvoice> Items { get; set; }
     }
 }

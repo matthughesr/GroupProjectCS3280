@@ -195,11 +195,9 @@ namespace GroupProject.Main
         {
             try
             {
-                gbInvoiceInfo.IsEnabled = false;
 
-
-                //Take main window out of editing mode. 
-                // Lock down window so no more changes can be made
+                bEditingMode = false; //Take main window out of editing mode. 
+                gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
                 // Save info to database
 
             }
