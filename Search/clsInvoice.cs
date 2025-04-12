@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GroupProject.Search
 {
-    internal class clsInvoice
+    public class clsInvoice
     {
 
         public string invoiceNumber { get; set; }
@@ -15,7 +15,18 @@ namespace GroupProject.Search
 
         public override string ToString()
         {
-            return $"NUMBER: {invoiceNumber}, DATE: {invoiceDate}, COST: {totalCost}";
+            var parts = new List<string>();
+
+            if (!string.IsNullOrEmpty(invoiceNumber))
+                parts.Add($"{invoiceNumber}");
+
+            if (!string.IsNullOrEmpty(invoiceDate))
+                parts.Add($"{invoiceDate}");
+
+            if (!string.IsNullOrEmpty(totalCost))
+                parts.Add($"{totalCost}");
+
+            return string.Join(", ", parts);
         }
 
     }

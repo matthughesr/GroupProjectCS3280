@@ -21,30 +21,82 @@ namespace GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+        /// <summary>
+        /// Public value for the selected invoice for MAIN to access
+        /// </summary>
+        public clsInvoice SelectedInvoice { get; private set; }
+
         public wndSearch()
         {
             InitializeComponent();
         }
 
-
         /// <summary>
-        /// Event listenr for when the search button is clicked for invoice
+        ///  Function that runs once the form has loaded. Initializes the datagrid
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void searchButtonInvoice_Click(object sender, RoutedEventArgs e)
+        private void wndSearch_Load(object sender, EventArgs e)
         {
-            //TODO: BULLET PROOF INVOICE NUMBER DATA
+            // Populate the data grid
+            List<clsInvoice> invoiceList = new List<clsInvoice>();
+            invoiceList = clsSearchLogic.getInvoices();
+
+            dgInvoice.ItemsSource = invoiceList;
+
+            // Populate the Invoice Number Combo Box
+            List<clsInvoice> invoiceNumber = new List<clsInvoice>();
+            invoiceNumber = clsSearchLogic.getInvoiceNumbers();
+
+            invoiceNumberCB.ItemsSource = invoiceNumber;
+
+            // Populate the Invoice Date Combo Box
+            List<clsInvoice> invoiceDate = new List<clsInvoice>();
+            invoiceDate = clsSearchLogic.getInvoiceDate();
+
+            invoiceDateCB.ItemsSource = invoiceDate;
+            // Populate the Total Cost Combo Box
+            List<clsInvoice> invoiceCost = new List<clsInvoice>();
+            invoiceCost = clsSearchLogic.getInvoiceCost();
+
+            invoiceCostCB.ItemsSource = invoiceCost;
+        }
+
+        /// <summary>
+        /// Event listener for when the cancel button is pressed. Closes search window and opens main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cancelButtonInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+
+        private void searchViaFilters(object sender, SelectionChangedEventArgs e)
+        {
+            string invoiceNumber = invoiceNumberCB.SelectedItem?.ToString();
+            string invoiceDate = invoiceDateCB.SelectedItem?.ToString();
+            string invoiceCost = invoiceCostCB.SelectedItem?.ToString();
+
+            List<clsInvoice> clsInvoiceSearchViaFilters = new List<clsInvoice>();
+            clsInvoiceSearchViaFilters = clsSearchLogic.searchViaFilters(invoiceNumber, invoiceDate, invoiceCost);
+
+            dgInvoice.ItemsSource = clsInvoiceSearchViaFilters;
+        }
+
+        /// <summary>
+        /// Function that clears all selected filters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clearFilters(object sender, RoutedEventArgs e)
+        {
             try
             {
-
-                string invoiceNumber = invoiceNumberTextBox.Text;
-
-                List<clsInvoice> invoiceList = clsSearchLogic.searchViaInvoice(invoiceNumber);
-
-                searchResultsCombo.ItemsSource = invoiceList;
-                searchResultsCombo.SelectedIndex = 0;
-
+                invoiceNumberCB.SelectedIndex = -1;
+                invoiceDateCB.SelectedIndex = -1;
+                invoiceCostCB.SelectedIndex = -1;
             }
             catch (Exception)
             {
@@ -52,24 +104,37 @@ namespace GroupProject.Search
                 throw;
             }
         }
-        
         /// <summary>
-        /// Event listener for when the cancel button is pressed. Closes search window and opens main window
+        /// Event listener for when an invoice has been selected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cancelButtonInvoice_Click(object sender, RoutedEventArgs e ) 
+        private void invoiceSelected(object sender, RoutedEventArgs e)
         {
-            //wndMain newWindow = new wndMain(); // I commented these lines out so we don't get additional main windows when you close the search window. -- Matt
-            //newWindow.Show();
+            try
+            {
+                var selectedInvoice = dgInvoice.SelectedItem as clsInvoice;
 
-            this.Close();
+                if (selectedInvoice != null)
+                {
+
+                    SelectedInvoice = selectedInvoice;
+                    MessageBox.Show("Success! Invoice Selected");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a row first.");
+                }
+
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
-
-        private void viewInvoiceInMain(object sender, SelectionChangedEventArgs e)
-        {
-            // Once selection is made pass list to main window for viewing
-        }
-
     }
 }

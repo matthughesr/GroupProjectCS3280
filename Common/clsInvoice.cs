@@ -27,5 +27,10 @@ namespace GroupProject.Common
         /// public property of all items on invoice 
         /// </summary>
         public List<clsInvoice> Items { get; set; }
+
+        public override string ToString()
+        {
+            return $"NUMBER: {sInvoiceNum}, DATE: {sInvoiceDate}, COST: {sTotalCost}";
+        }
     }
 }

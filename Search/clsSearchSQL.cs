@@ -93,5 +93,41 @@ namespace GroupProject.Search
 
             return query;
         }
+
+        /// <summary>
+        /// Function that returns a SQL query based on the selected filters
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="invoiceDate"></param>
+        /// <param name="invoiceCost"></param>
+        /// <returns></returns>
+        public static string searchViaFilters(string invoiceNumber = null, string invoiceDate = null, string invoiceCost = null)
+        {
+            try
+            {
+                string baseQuery = "SELECT * FROM Invoices";
+                List<string> filters = new List<string>();
+
+                if (!string.IsNullOrEmpty(invoiceNumber))
+                    filters.Add($"InvoiceNum = {invoiceNumber}");
+
+                if (!string.IsNullOrEmpty(invoiceDate))
+                    filters.Add($"InvoiceDate = #{invoiceDate}#");
+
+                if (!string.IsNullOrEmpty(invoiceCost))
+                    filters.Add($"TotalCost = {invoiceCost}");
+
+                if (filters.Count > 0)
+                {
+                    baseQuery += " WHERE " + string.Join(" AND ", filters);
+                }
+
+                return baseQuery;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
