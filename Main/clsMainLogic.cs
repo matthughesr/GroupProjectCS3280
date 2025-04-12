@@ -45,10 +45,16 @@ namespace GroupProject.Main
             try
             {
                 clsDataAccess db = new clsDataAccess();
+                DataSet ds = new DataSet(); //Holds the return values
+                int iRet = 0;   //Number of return values
+
 
                 string sSQL = clsMainSQL.InsertInvoices(invoice.sInvoiceDate, invoice.sTotalCost);
                 db.ExecuteNonQuery(sSQL);  //Execute sql insert statement
 
+                sSQL = "SELECT MAX(InvoiceNum) FROM Invoices";
+                ds = db.ExecuteSQLStatement(sSQL, ref iRet);  //Execute sql statement
+                invoice.sInvoiceNum = ds.Tables[0].Rows[0][0].ToString();
 
                 //make sure to get all items 
                 int iLineItemNum = 0;

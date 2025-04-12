@@ -33,6 +33,7 @@ namespace GroupProject.Main
         private ObservableCollection<clsItem> InvoiceItems = new ObservableCollection<clsItem>();  // Holds only invoice items
 
 
+
         /// <summary>
         /// Public property for editing mode
         /// </summary>
@@ -56,11 +57,16 @@ namespace GroupProject.Main
                 clsMainLogic = new clsMainLogic();
                 clsGetItems = new clsGetItems();
                 Invoice = new GroupProject.Common.clsInvoice();
+                {
+                    Invoice.Items = new ObservableCollection<clsItem>(); //Initalize the items property 
+                }
+
 
 
 
                 cbItems.ItemsSource = clsGetItems.GetAllItems(); //bind combo box to getItems
-                dgInvoice.ItemsSource = InvoiceItems;   //bind data grid to show items added
+                //dgInvoice.ItemsSource = InvoiceItems;   //bind data grid to show items added
+                dgInvoice.ItemsSource = Invoice.Items;   //bind data grid to show items added
 
                 gbInvoiceInfo.IsEnabled = false;
 
@@ -206,6 +212,7 @@ namespace GroupProject.Main
                 }
                 else
                 {
+                    
 
                     Invoice.sTotalCost = fTotalCost.ToString();
                     Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString(); ;
@@ -254,9 +261,10 @@ namespace GroupProject.Main
                 // Remove item from datagrid
 
                 clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
-                if(InvoiceItems.Contains(SelectedItem))
+                if (Invoice.Items.Contains(SelectedItem))
                 {
-                    InvoiceItems.Remove(SelectedItem);
+                    Invoice.Items.Remove(SelectedItem);
+                    Invoice.Items.Remove(SelectedItem);
                     fTotalCost -= float.Parse(SelectedItem.sItemCost);
                     lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
 
@@ -281,14 +289,13 @@ namespace GroupProject.Main
                 //Make sure its in editing mode
                 // Add item to data grid for viewing
                 clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
-                if (!InvoiceItems.Contains(SelectedItem)) // Avoid duplicates
+                if (!Invoice.Items.Contains(SelectedItem)) // Avoid duplicates
                 {
-                    InvoiceItems.Add(SelectedItem);
+                    Invoice.Items.Add(SelectedItem);
                     fTotalCost += float.Parse(SelectedItem.sItemCost);
                     lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
 
                 }
-
             }
             catch (Exception ex)
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }

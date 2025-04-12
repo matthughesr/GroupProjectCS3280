@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,8 @@ namespace GroupProject.Common
         /// <summary>
         /// public property of all items on invoice 
         /// </summary>
-        public List<clsItem> Items { get; set; }
+        public ObservableCollection<clsItem> Items { get; set; }
+
 
         /// <summary>
         /// Override to string method for clsInvoice

@@ -9,7 +9,10 @@ namespace GroupProject.Main
 {
     class clsMainSQL
     {
-    public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
+
+        //- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
+
+        public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
     {
             try
             {
@@ -95,7 +98,8 @@ namespace GroupProject.Main
 }
 
 
-/*- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
+/*
+- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
 - INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (123, 1, 'AA')
 - INSERT INTO Invoices (InvoiceDate, TotalCost) Values (#4/13/2018#, 100)
 - SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = 123
