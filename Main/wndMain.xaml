@@ -51,6 +51,7 @@
                 <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="13,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnAddItem_Click"/>
             </Grid>
         </GroupBox>
+        <Label x:Name="lblMessage" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357"/>
 
 
 

@@ -27,6 +27,7 @@ namespace GroupProject.Main
     {
         clsMainLogic clsMainLogic;
         clsGetItems clsGetItems;
+        GroupProject.Common.clsInvoice Invoice;
 
         private List<clsItem> AllItems = new List<clsItem>();  // Holds all items (inventory)
         private ObservableCollection<clsItem> InvoiceItems = new ObservableCollection<clsItem>();  // Holds only invoice items
@@ -54,6 +55,7 @@ namespace GroupProject.Main
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 clsMainLogic = new clsMainLogic();
                 clsGetItems = new clsGetItems();
+                Invoice = new GroupProject.Common.clsInvoice();
 
 
 
@@ -198,7 +200,21 @@ namespace GroupProject.Main
 
                 bEditingMode = false; //Take main window out of editing mode. 
                 gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
-                // Save info to database
+
+                if(dpInvoiceDatePicker.SelectedDate == null) {
+                    lblMessage.Content = "Must have date selected";
+                }
+                else
+                {
+
+                    Invoice.sTotalCost = fTotalCost.ToString();
+                    Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString(); ;
+
+
+                clsMainLogic.SaveInvoice(Invoice); // Save info to database
+
+                lblMessage.Content = "Invoice Saved";
+                }
 
             }
             catch (Exception ex)

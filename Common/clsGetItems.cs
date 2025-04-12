@@ -14,6 +14,12 @@ namespace GroupProject.Common
     internal class clsGetItems
     {
         //getallitems. reutrn list. Used to populate combo box. Can be seperate cls
+
+        /// <summary>
+        /// Returns all items in a list
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public List<clsItem> GetAllItems()
         {
             try

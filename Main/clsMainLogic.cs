@@ -15,7 +15,6 @@ namespace GroupProject.Main
     {
 
 
-
     /// <summary>
     /// Method to handle exceptions
     /// </summary>
@@ -34,35 +33,39 @@ namespace GroupProject.Main
             // throw;
         }
     }
-        /*
+        
         
         /// <summary>
         /// Method to save a new invoice 
         /// </summary>
         /// <param name=""></param>
         /// <exception cref="Exception"></exception>
-        public void SaveInvoice(clsInvoice)
+        public void SaveInvoice(GroupProject.Common.clsInvoice invoice)
         {
             try
             {
                 clsDataAccess db = new clsDataAccess();
-                DataSet ds = new DataSet(); //Holds the return values
-                int iRet = 0;   //Number of return values
 
-                string sSQL = clsMainSQL.InsertInvoices(sInvoiceDate, sTotalCost);
+                string sSQL = clsMainSQL.InsertInvoices(invoice.sInvoiceDate, invoice.sTotalCost);
                 db.ExecuteNonQuery(sSQL);  //Execute sql insert statement
 
 
-            //make sure to get all items 
-                sSQL = clsMainSQL.InsertLineItems(InvoiceNum, LineItemNum, ItemCode);
-                db.ExecuteNonQuery(sSQL);  //Execute sql insert statement
+                //make sure to get all items 
+                int iLineItemNum = 0;
+                foreach (var item in invoice.Items)
+                    {
+                        sSQL = clsMainSQL.InsertLineItems(invoice.sInvoiceNum, iLineItemNum.ToString(), item.sItemCode);
+                        db.ExecuteNonQuery(sSQL);  //Execute sql insert statement
+                        iLineItemNum++;
+
+                    }
             }
             catch (Exception ex)
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
 
         }
-
-
+        
+        /*
         /// <summary>
         /// Method to edit invoice and save new invoice
         /// </summary>
@@ -95,9 +98,9 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
 
         }
-
-
         */
+
+        
 
        
 
