@@ -12,6 +12,14 @@ namespace GroupProject.Main
 
         //- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
 
+        /// <summary>
+        /// Inserts InvoiceNum, LineItemNum, ItemCode into LineItems table
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <param name="sLineItemNum"></param>
+        /// <param name="sItemCode"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
     {
             try
@@ -26,6 +34,13 @@ namespace GroupProject.Main
        }
 
 
+        /// <summary>
+        /// Inserts InvoiceDate and TotalCost into Invoices table
+        /// </summary>
+        /// <param name="sInvoiceDate"></param>
+        /// <param name="sTotalCost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string InsertInvoices(string sInvoiceDate, string sTotalCost)
         {
             try
@@ -39,6 +54,12 @@ namespace GroupProject.Main
 
         }
 
+        /// <summary>
+        /// Selects invoice by number. This is used to get the invoice number, date, and total cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectInvoiceByNumber(string sInvoiceNum)
         {
             try
@@ -51,6 +72,11 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Selects all items from ItemDesc table
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectAllItem()
         {
             try
@@ -63,6 +89,12 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Selects  LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectLineItems(string sInvoiceNum)
         {
             try
@@ -77,6 +109,12 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Deletes Line items by invoice number
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string DeleteLineItemsByInvoice(string sInvoiceNum)
         {
             try

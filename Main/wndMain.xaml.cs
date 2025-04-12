@@ -30,7 +30,7 @@ namespace GroupProject.Main
         GroupProject.Common.clsInvoice Invoice;
 
         private List<clsItem> AllItems = new List<clsItem>();  // Holds all items (inventory)
-        private ObservableCollection<clsItem> InvoiceItems = new ObservableCollection<clsItem>();  // Holds only invoice items
+        //private ObservableCollection<clsItem> InvoiceItems = new ObservableCollection<clsItem>();  // Holds only invoice items
 
 
 
@@ -83,23 +83,35 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void openSearchWindow(object sender , RoutedEventArgs e)
+        private void openSearchWindow(object sender, RoutedEventArgs e)
         {
             try
             {
-                
                 wndSearch searchWindow = new wndSearch();
 
                 this.Hide();
                 searchWindow.ShowDialog();
                 this.Show();
-                //check to see if invoice is selected. If so load it up
 
+                // Check if an invoice was selected
+                if (searchWindow.SelectedInvoice != null)
+                {
+                    // Get the invoice from the database
+                    Invoice = clsMainLogic.GetInvoice(searchWindow.SelectedInvoice.invoiceNumber);
 
+                    // Bind the items to the DataGrid
+                    dgInvoice.ItemsSource = Invoice.Items;
 
+                    // Update other UI elements (e.g., invoice number, date, total cost)
+                    lblInvoiceNum.Content = $"Invoice Number: {Invoice.sInvoiceNum}";
+                    dpInvoiceDatePicker.SelectedDate = DateTime.Parse(Invoice.sInvoiceDate);
+                    lblTotalCost.Content = $"Total Cost: ${Invoice.sTotalCost}";
+                }
             }
             catch (Exception ex)
-            { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
+            {
+                clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -181,11 +193,9 @@ namespace GroupProject.Main
         {
             try
             {
-                gbInvoiceInfo.IsEnabled = true;
-                bEditingMode = true;
+                gbInvoiceInfo.IsEnabled = true; // Allow user to add items
+                bEditingMode = true; // Put main window into editing mode
 
-                // Put main window into editing mode
-                // Allow user to addd items
                 // Allow user to edit invoice date
                 // Save info to database
 
