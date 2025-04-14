@@ -119,7 +119,7 @@ namespace GroupProject.Search
                 {
 
                     SelectedInvoice = selectedInvoice;
-                    MessageBox.Show("Success! Invoice Selected");
+                   // MessageBox.Show("Success! Invoice Selected");
                     this.Close();
                 }
                 else

@@ -39,6 +39,11 @@ namespace GroupProject.Main
         /// </summary>
         public bool bEditingMode {  get; set; }
 
+        /// <summary>
+        /// Public Property for creation mode
+        /// </summary>
+        public bool bCreateInvoiceMode { get; set; } 
+
 
         /// <summary>
         /// Public property for invoice total cost 
@@ -68,7 +73,9 @@ namespace GroupProject.Main
                 //dgInvoice.ItemsSource = InvoiceItems;   //bind data grid to show items added
                 dgInvoice.ItemsSource = Invoice.Items;   //bind data grid to show items added
 
-                gbInvoiceInfo.IsEnabled = false;
+                gbInvoiceInfo.IsEnabled = false;    //Disable group box controls 
+                btnSaveInvoice.IsEnabled = false; // Disable save button until editing or creating an invoice
+                btnEditInvoice.IsEnabled = false; // Disable edit button until an invoice is selected
 
 
 
@@ -87,6 +94,11 @@ namespace GroupProject.Main
         {
             try
             {
+                lblMessage.Content = "";    //reset message label
+                lblMessage.Background = System.Windows.Media.Brushes.Transparent;   //reset message label background color
+
+
+
                 wndSearch searchWindow = new wndSearch();
 
                 this.Hide();
@@ -96,16 +108,36 @@ namespace GroupProject.Main
                 // Check if an invoice was selected
                 if (searchWindow.SelectedInvoice != null)
                 {
+                    btnEditInvoice.IsEnabled = true; // Enable edit button
+
+                    GroupProject.Common.clsInvoice SelectedInvoice = new GroupProject.Common.clsInvoice();
                     // Get the invoice from the database
-                    Invoice = clsMainLogic.GetInvoice(searchWindow.SelectedInvoice.invoiceNumber);
+                    SelectedInvoice = clsMainLogic.GetInvoice(searchWindow.SelectedInvoice.invoiceNumber);
 
-                    // Bind the items to the DataGrid
-                    dgInvoice.ItemsSource = Invoice.Items;
+                    Invoice.Items.Clear(); //clear out exisiting items
 
-                    // Update other UI elements (e.g., invoice number, date, total cost)
-                    lblInvoiceNum.Content = $"Invoice Number: {Invoice.sInvoiceNum}";
-                    dpInvoiceDatePicker.SelectedDate = DateTime.Parse(Invoice.sInvoiceDate);
-                    lblTotalCost.Content = $"Total Cost: ${Invoice.sTotalCost}";
+                    foreach (var item in SelectedInvoice.Items)
+                    {
+                        Invoice.Items.Add(item);    //Add items from selected invoice to the items list
+                    }
+
+                    fTotalCost = float.Parse(SelectedInvoice.sTotalCost); // Set the total cost to the selected invoices total cost
+                    Invoice.sInvoiceNum = SelectedInvoice.sInvoiceNum; // Set the invoice number to the selected invoices invoice number
+                    // Update other UI elements 
+                    lblInvoiceNum.Content = "Invoice Number: " + SelectedInvoice.sInvoiceNum;
+                    lblTotalCost.Content = "Total Cost: $" + SelectedInvoice.sTotalCost;
+
+                    if (DateTime.TryParse(SelectedInvoice.sInvoiceDate, out DateTime parsedDate))
+                    {
+                        dpInvoiceDatePicker.SelectedDate = parsedDate;
+                    }
+                    else
+                    {
+                        // Handle invalid date format
+                        MessageBox.Show("The invoice date is not in a valid format.");
+                        dpInvoiceDatePicker.SelectedDate = null;
+                    }
+                    //dpInvoiceDatePicker.SelectedDate = DateTime.Parse(Invoice.sInvoiceDate);
                 }
             }
             catch (Exception ex)
@@ -123,6 +155,8 @@ namespace GroupProject.Main
         {
             try
             {
+                lblMessage.Content = "";    //reset message label
+                lblMessage.Background = System.Windows.Media.Brushes.Transparent;   //reset message label background color
 
                 wndItems itemsWindow = new wndItems();
 
@@ -168,7 +202,14 @@ namespace GroupProject.Main
         {
             try
             {
-                bEditingMode = true;
+                lblMessage.Content = "";    //reset message label
+                lblMessage.Background = System.Windows.Media.Brushes.Transparent;   //reset message label background color
+                btnSaveInvoice.IsEnabled = true; // Enable save button
+                menuBar.IsEnabled = false; // Disable menu bar
+                btnEditInvoice.IsEnabled = false; // Disable edit button
+                btnCreateInvoice.IsEnabled = false; // Disable create invoice button
+
+                bCreateInvoiceMode = true;
                 fTotalCost = 0;
                 gbInvoiceInfo.IsEnabled = true;
                 lblInvoiceNum.Content = "Invoice Number: TBD";
@@ -193,7 +234,14 @@ namespace GroupProject.Main
         {
             try
             {
+                lblMessage.Content = "";    //reset message label
+                lblMessage.Background = System.Windows.Media.Brushes.Transparent;   //reset message label background color
+                btnSaveInvoice.IsEnabled = true; // Enable save button
                 gbInvoiceInfo.IsEnabled = true; // Allow user to add items
+                menuBar.IsEnabled = false; // Disable menu bar
+                btnEditInvoice.IsEnabled = false; // Disable edit button
+                btnCreateInvoice.IsEnabled = false; // Disable create invoice button
+
                 bEditingMode = true; // Put main window into editing mode
 
                 // Allow user to edit invoice date
@@ -213,25 +261,48 @@ namespace GroupProject.Main
         {
             try
             {
-
-                bEditingMode = false; //Take main window out of editing mode. 
                 gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
 
-                if(dpInvoiceDatePicker.SelectedDate == null) {
-                    lblMessage.Content = "Must have date selected";
-                }
-                else
+                if(bEditingMode == true) // Check if in editing mode
                 {
-                    
+                    bEditingMode = false; //Take main window out of editing mode. 
 
                     Invoice.sTotalCost = fTotalCost.ToString();
-                    Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString(); ;
+                    Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString();
+
+                    clsMainLogic.EditInvoice(Invoice); // Save changes
 
 
-                clsMainLogic.SaveInvoice(Invoice); // Save info to database
+                }
+                else if (bCreateInvoiceMode == true) //check if in creation mode
+                {
+                    bCreateInvoiceMode = false; //Take main window out of creation mode.
+
+                    if (dpInvoiceDatePicker.SelectedDate == null) {
+                        lblMessage.Content = "Must have date selected";
+                    }
+                    else
+                    {
+                        Invoice.sTotalCost = fTotalCost.ToString();
+                        Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString(); 
+
+                        clsMainLogic.SaveInvoice(Invoice); // Save info to database
+
+                        Invoice.sInvoiceNum = clsMainLogic.getInvoiceNum();//get the invoice number from the database
+                        lblInvoiceNum.Content = "Invoice Number: " + Invoice.sInvoiceNum; //Display the invoice number
+
+                    }
+                }
 
                 lblMessage.Content = "Invoice Saved";
-                }
+                lblMessage.Background = System.Windows.Media.Brushes.Green; // Change background color to green
+                btnSaveInvoice.IsEnabled = false; // Disable save button
+                menuBar.IsEnabled = true;
+                btnEditInvoice.IsEnabled = true;
+                btnCreateInvoice.IsEnabled = true; // Enable create invoice button
+                gbInvoiceInfo.IsEnabled = false; // Disable group box controls
+
+
 
             }
             catch (Exception ex)

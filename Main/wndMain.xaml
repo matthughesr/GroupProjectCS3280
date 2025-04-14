@@ -16,7 +16,7 @@
             <ColumnDefinition Width="237*"/>
             <ColumnDefinition Width="563*"/>
         </Grid.ColumnDefinitions>
-        <Menu Margin="0,0,10,10">
+        <Menu x:Name="menuBar" Margin="0,0,10,10">
             <MenuItem Header="Update Items" Click="MenuItem_Click"></MenuItem>
             <MenuItem Header="Search for Invoice" Click="openSearchWindow"></MenuItem>
 
@@ -51,7 +51,7 @@
                 <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="13,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnAddItem_Click"/>
             </Grid>
         </GroupBox>
-        <Label x:Name="lblMessage" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357"/>
+        <Label x:Name="lblMessage" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357" FontSize="15"/>
 
 
 
