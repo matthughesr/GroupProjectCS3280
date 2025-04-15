@@ -21,7 +21,13 @@
             <MenuItem Header="Search for Invoice" Click="openSearchWindow"></MenuItem>
 
         </Menu>
-        <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0" SelectionChanged="dgInvoice_SelectionChanged"/>
+        <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0" SelectionChanged="dgInvoice_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding sItemCode}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding sItemDescription}" />
+                <DataGridTextColumn Header="Cost" Binding="{Binding sItemCost}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="btnCreateInvoice" Grid.Column="1" Content="Create Invoice" HorizontalAlignment="Left" Margin="47,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="btnCreateInvoice_Click"/>
         <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnEditInvoice_Click"/>
         <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="281,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="80" Click="btnSaveInvoice_Click"/>

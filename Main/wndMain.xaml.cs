@@ -229,9 +229,6 @@ namespace GroupProject.Main
 
                 bEditingMode = true; // Put main window into editing mode
 
-                // Allow user to edit invoice date
-                // Save info to database
-
             }
             catch (Exception ex)
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
@@ -246,7 +243,8 @@ namespace GroupProject.Main
         {
             try
             {
-                gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
+                bool bSuccess = false;
+                
 
                 if(bEditingMode == true) // Check if in editing mode
                 {
@@ -256,18 +254,19 @@ namespace GroupProject.Main
                     Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString();
 
                     clsMainLogic.EditInvoice(Invoice); // Save changes
-
+                    bSuccess = true;
 
                 }
                 else if (bCreateInvoiceMode == true) //check if in creation mode
                 {
-                    bCreateInvoiceMode = false; //Take main window out of creation mode.
 
                     if (dpInvoiceDatePicker.SelectedDate == null) {
                         lblMessage.Content = "Must have date selected";
                     }
                     else
                     {
+                        bCreateInvoiceMode = false; //Take main window out of creation mode.
+
                         Invoice.sTotalCost = fTotalCost.ToString();
                         Invoice.sInvoiceDate = dpInvoiceDatePicker.SelectedDate.ToString(); 
 
@@ -275,20 +274,23 @@ namespace GroupProject.Main
 
                         Invoice.sInvoiceNum = clsMainLogic.getInvoiceNum();//get the invoice number from the database
                         lblInvoiceNum.Content = "Invoice Number: " + Invoice.sInvoiceNum; //Display the invoice number
-
+                        bSuccess = true;
                     }
                 }
 
-                lblMessage.Content = "Invoice Saved";
-                lblMessage.Background = System.Windows.Media.Brushes.Green; // Change background color to green
-                btnSaveInvoice.IsEnabled = false; // Disable save button
-                menuBar.IsEnabled = true;
-                btnEditInvoice.IsEnabled = true;
-                btnCreateInvoice.IsEnabled = true; // Enable create invoice button
-                gbInvoiceInfo.IsEnabled = false; // Disable group box controls
-                dpInvoiceDatePicker.IsEnabled = true; //Disable date picker. User should not be able to change the date.
-                btnCancel.IsEnabled = false; //disable cancel button
-
+                if (bSuccess == true)
+                {
+                    gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
+                    lblMessage.Content = "Invoice Saved";
+                    lblMessage.Background = System.Windows.Media.Brushes.Green; // Change background color to green
+                    btnSaveInvoice.IsEnabled = false; // Disable save button
+                    menuBar.IsEnabled = true;
+                    btnEditInvoice.IsEnabled = true;
+                    btnCreateInvoice.IsEnabled = true; // Enable create invoice button
+                    gbInvoiceInfo.IsEnabled = false; // Disable group box controls
+                    dpInvoiceDatePicker.IsEnabled = true; //Disable date picker. User should not be able to change the date.
+                    btnCancel.IsEnabled = false; //disable cancel button
+                }
 
 
 
@@ -325,21 +327,19 @@ namespace GroupProject.Main
         {
             try
             {
-
-                //Make sure its in editing mode
-                // Remove item from datagrid
-
-                clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
-                if (Invoice.Items.Contains(SelectedItem))
+                if(bEditingMode == true || bCreateInvoiceMode == true) //Make sure its in editing mode
                 {
-                    Invoice.Items.Remove(SelectedItem);
-                    Invoice.Items.Remove(SelectedItem);
-                    fTotalCost -= float.Parse(SelectedItem.sItemCost);
-                    lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
 
+                    clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                    if (Invoice.Items.Contains(SelectedItem))
+                    {
+                        Invoice.Items.Remove(SelectedItem);
+                        Invoice.Items.Remove(SelectedItem);
+                        fTotalCost -= float.Parse(SelectedItem.sItemCost);
+                        lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
+
+                    }
                 }
-
-
             }
             catch (Exception ex)
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
@@ -355,22 +355,23 @@ namespace GroupProject.Main
             try
             {
 
-                //Make sure its in editing mode
-                // Add item to data grid for viewing
-                clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
-                //if (!Invoice.Items.Contains(SelectedItem)) // Avoid duplicates
-                if (!Invoice.Items.Any(item => item.sItemCode == SelectedItem.sItemCode)) // Avoid duplicates
+                if (bCreateInvoiceMode == true || bEditingMode == true) //Make sure its in editing mode
                 {
-                    Invoice.Items.Add(SelectedItem);
+                    clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                    Invoice.Items.Add(SelectedItem);  // Add item to data grid for viewing
                     fTotalCost += float.Parse(SelectedItem.sItemCost);
                     lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
-
                 }
             }
             catch (Exception ex)
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
         }
 
+        /// <summary>
+        /// Cancel button. Resets window to previous state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -400,7 +401,9 @@ namespace GroupProject.Main
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
         }
 
-
+        /// <summary>
+        /// Loads the selected invoice from the search window
+        /// </summary>
         private void LoadSelectedInvoice()
         {
 
