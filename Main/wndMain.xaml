@@ -23,8 +23,8 @@
         </Menu>
         <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0" SelectionChanged="dgInvoice_SelectionChanged"/>
         <Button x:Name="btnCreateInvoice" Grid.Column="1" Content="Create Invoice" HorizontalAlignment="Left" Margin="47,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="btnCreateInvoice_Click"/>
-        <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="217,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnEditInvoice_Click"/>
-        <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="397,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="80" Click="btnSaveInvoice_Click"/>
+        <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnEditInvoice_Click"/>
+        <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="281,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="80" Click="btnSaveInvoice_Click"/>
         <Label x:Name="lblTitle" Content="C# Landscaping" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="217" Background="#FF4A753B" Foreground="White" FontSize="20" HorizontalContentAlignment="Center"/>
         <GroupBox x:Name="gbInvoiceInfo" Header="Invoice Info" Grid.Row="2" Margin="0,5,0,5">
             <Grid x:Name="gridGroupBoxInvoice">
@@ -52,6 +52,7 @@
             </Grid>
         </GroupBox>
         <Label x:Name="lblMessage" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357" FontSize="15"/>
+        <Button x:Name="btnCancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="415,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="-0.051,0.233" Width="71" Click="btnCancel_Click"/>
 
 
 

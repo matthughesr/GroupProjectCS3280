@@ -1,5 +1,6 @@
 ﻿using GroupProject.Common;
 using GroupProject.Items;
+using GroupProject.Main;
 using GroupProject.Search;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,10 @@ namespace GroupProject.Main
         public float fTotalCost {  get; set; }
 
         /// <summary>
+        /// Public property for selected invoice number
+        /// </summary>
+        public string sSelectedInvoiceNum { get; set; } // Holds the selected invoice number from the search window
+        /// <summary>
         /// Default Constructor
         /// </summary>
         public wndMain()
@@ -76,6 +81,7 @@ namespace GroupProject.Main
                 gbInvoiceInfo.IsEnabled = false;    //Disable group box controls 
                 btnSaveInvoice.IsEnabled = false; // Disable save button until editing or creating an invoice
                 btnEditInvoice.IsEnabled = false; // Disable edit button until an invoice is selected
+                btnCancel.IsEnabled = false; // Disable cancel button 
 
 
 
@@ -105,41 +111,14 @@ namespace GroupProject.Main
                 searchWindow.ShowDialog();
                 this.Show();
 
-                // Check if an invoice was selected
                 if (searchWindow.SelectedInvoice != null)
                 {
-                    btnEditInvoice.IsEnabled = true; // Enable edit button
-
-                    GroupProject.Common.clsInvoice SelectedInvoice = new GroupProject.Common.clsInvoice();
-                    // Get the invoice from the database
-                    SelectedInvoice = clsMainLogic.GetInvoice(searchWindow.SelectedInvoice.invoiceNumber);
-
-                    Invoice.Items.Clear(); //clear out exisiting items
-
-                    foreach (var item in SelectedInvoice.Items)
-                    {
-                        Invoice.Items.Add(item);    //Add items from selected invoice to the items list
-                    }
-
-                    fTotalCost = float.Parse(SelectedInvoice.sTotalCost); // Set the total cost to the selected invoices total cost
-                    Invoice.sInvoiceNum = SelectedInvoice.sInvoiceNum; // Set the invoice number to the selected invoices invoice number
-                    // Update other UI elements 
-                    lblInvoiceNum.Content = "Invoice Number: " + SelectedInvoice.sInvoiceNum;
-                    lblTotalCost.Content = "Total Cost: $" + SelectedInvoice.sTotalCost;
-
-                    if (DateTime.TryParse(SelectedInvoice.sInvoiceDate, out DateTime parsedDate))
-                    {
-                        dpInvoiceDatePicker.SelectedDate = parsedDate;
-                    }
-                    else
-                    {
-                        // Handle invalid date format
-                        MessageBox.Show("The invoice date is not in a valid format.");
-                        dpInvoiceDatePicker.SelectedDate = null;
-                    }
-                    //dpInvoiceDatePicker.SelectedDate = DateTime.Parse(Invoice.sInvoiceDate);
+                    sSelectedInvoiceNum = searchWindow.SelectedInvoice.invoiceNumber;
+                    LoadSelectedInvoice(); // Load the selected invoice
                 }
-            }
+
+
+                }
             catch (Exception ex)
             {
                 clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
@@ -208,16 +187,19 @@ namespace GroupProject.Main
                 menuBar.IsEnabled = false; // Disable menu bar
                 btnEditInvoice.IsEnabled = false; // Disable edit button
                 btnCreateInvoice.IsEnabled = false; // Disable create invoice button
+                btnCancel.IsEnabled = true; // Enable cancel button
 
                 bCreateInvoiceMode = true;
                 fTotalCost = 0;
                 gbInvoiceInfo.IsEnabled = true;
-                lblInvoiceNum.Content = "Invoice Number: TBD";
 
-            // Will remove the current invoice that is being viewed if any
-            // Allow user to add items 
-            // Allow user to select invoice date
-            // Save info to database
+                Invoice.Items.Clear(); // Will remove the current invoice that is being viewed if any
+                lblCost.Content = "Cost:"; // Reset cost label
+                lblInvoiceNum.Content = "Invoice Number: TBD"; // Reset invoice number label
+                dpInvoiceDatePicker.SelectedDate = null;
+                lblTotalCost.Content = "Total Cost: $0.00"; // Reset total cost label
+
+
 
 
             }
@@ -241,6 +223,9 @@ namespace GroupProject.Main
                 menuBar.IsEnabled = false; // Disable menu bar
                 btnEditInvoice.IsEnabled = false; // Disable edit button
                 btnCreateInvoice.IsEnabled = false; // Disable create invoice button
+                dpInvoiceDatePicker.IsEnabled = false; //Disable date picker. User should not be able to change the date.
+                btnCancel.IsEnabled = true; // Enable cancel button
+                
 
                 bEditingMode = true; // Put main window into editing mode
 
@@ -301,6 +286,9 @@ namespace GroupProject.Main
                 btnEditInvoice.IsEnabled = true;
                 btnCreateInvoice.IsEnabled = true; // Enable create invoice button
                 gbInvoiceInfo.IsEnabled = false; // Disable group box controls
+                dpInvoiceDatePicker.IsEnabled = true; //Disable date picker. User should not be able to change the date.
+                btnCancel.IsEnabled = false; //disable cancel button
+
 
 
 
@@ -370,7 +358,8 @@ namespace GroupProject.Main
                 //Make sure its in editing mode
                 // Add item to data grid for viewing
                 clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
-                if (!Invoice.Items.Contains(SelectedItem)) // Avoid duplicates
+                //if (!Invoice.Items.Contains(SelectedItem)) // Avoid duplicates
+                if (!Invoice.Items.Any(item => item.sItemCode == SelectedItem.sItemCode)) // Avoid duplicates
                 {
                     Invoice.Items.Add(SelectedItem);
                     fTotalCost += float.Parse(SelectedItem.sItemCost);
@@ -382,10 +371,84 @@ namespace GroupProject.Main
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(bCreateInvoiceMode == true) // Check if in creation mode
+                {
+                    Invoice.Items.Clear(); //clear out exisiting items
+                    fTotalCost = 0; //reset total cost
+                }
+                else if (bEditingMode == true) // Check if in editing mode
+                {
+                    LoadSelectedInvoice(); // Load the selected invoice
+
+                }
+                gbInvoiceInfo.IsEnabled = false; // Disable group box controls
+                btnSaveInvoice.IsEnabled = false; // Disable save button
+                btnCancel.IsEnabled = false; // Disable cancel button
+                menuBar.IsEnabled = true; // Enable menu bar
+                btnCreateInvoice.IsEnabled = true; // Enable create invoice button
 
 
+                bCreateInvoiceMode = false; //Take main window out of creation mode.
+                bEditingMode = false; //Take main window out of editing mode.
+
+            }
+            catch (Exception ex)
+            { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
+        }
 
 
+        private void LoadSelectedInvoice()
+        {
 
+            try
+            {
+                // Check if an invoice was selected
+                if (sSelectedInvoiceNum != null)
+                {
+                    btnEditInvoice.IsEnabled = true; // Enable edit button
+
+                    Invoice.Items.Clear(); //clear out exisiting items
+
+                    GroupProject.Common.clsInvoice SelectedInvoice = new GroupProject.Common.clsInvoice();
+                    // Get the invoice from the database
+                    SelectedInvoice = clsMainLogic.GetInvoice(sSelectedInvoiceNum);
+
+
+                    foreach (var item in SelectedInvoice.Items)
+                    {
+                        Invoice.Items.Add(item);    //Add items from selected invoice to the items list
+                    }
+
+                    fTotalCost = float.Parse(SelectedInvoice.sTotalCost); // Set the total cost to the selected invoices total cost
+                    Invoice.sInvoiceNum = SelectedInvoice.sInvoiceNum; // Set the invoice number to the selected invoices invoice number
+                                                                       // Update other UI elements 
+                    lblInvoiceNum.Content = "Invoice Number: " + SelectedInvoice.sInvoiceNum;
+                    lblTotalCost.Content = "Total Cost: $" + SelectedInvoice.sTotalCost;
+
+                    if (DateTime.TryParse(SelectedInvoice.sInvoiceDate, out DateTime parsedDate))
+                    {
+                        dpInvoiceDatePicker.SelectedDate = parsedDate;
+                    }
+                    else
+                    {
+                        // Handle invalid date format
+                        MessageBox.Show("The invoice date is not in a valid format.");
+                        dpInvoiceDatePicker.SelectedDate = null;
+                    }
+                    //dpInvoiceDatePicker.SelectedDate = DateTime.Parse(Invoice.sInvoiceDate);
+            }
+
+            }
+            catch (Exception ex)
+            { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
+
+
+        }
     }
 }
+
+
