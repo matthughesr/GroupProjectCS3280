@@ -73,6 +73,11 @@ namespace GroupProject.Search
             this.Close();
         }
 
+        /// <summary>
+        /// Function that selects filters and pulls search results from the DB using these filters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchViaFilters(object sender, SelectionChangedEventArgs e)
         {
             string invoiceNumber = invoiceNumberCB.SelectedItem?.ToString();
@@ -119,7 +124,7 @@ namespace GroupProject.Search
                 {
 
                     SelectedInvoice = selectedInvoice;
-                    MessageBox.Show("Success! Invoice Selected");
+                   // MessageBox.Show("Success! Invoice Selected");
                     this.Close();
                 }
                 else
@@ -135,6 +140,24 @@ namespace GroupProject.Search
                 throw;
             }
 
+        }
+        /// <summary>
+        /// Error Handler
+        /// </summary>
+        /// <param name="sClass"></param>
+        /// <param name="sMethod"></param>
+        /// <param name="sMessage"></param>
+        public static void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (Exception ex)
+            {
+
+                // throw;
+            }
         }
     }
 }
