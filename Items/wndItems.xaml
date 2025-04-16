@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Items"
         mc:Ignorable="d"
-        Title="wndItems" Height="600" Width="800">
+        Title="wndItems" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,30 +19,20 @@
         <Label Content="Item Code:" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top"/>
         <Label Content="Item Description:" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Item Price:" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBox_ItemCode" HorizontalAlignment="Left" Margin="180,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
-        <TextBox x:Name="txtBox_ItemDescr" HorizontalAlignment="Left" Margin="180,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
-        <TextBox x:Name="txtBox_ItemPrice" HorizontalAlignment="Left" Margin="180,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
+        <TextBox x:Name="txtBox_ItemCode" HorizontalAlignment="Left" Margin="180,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="txtBox_ItemDescr" HorizontalAlignment="Left" Margin="180,100,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="txtBox_ItemPrice" HorizontalAlignment="Left" Margin="180,160,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Label x:Name="lbl_ErrorItemCode" Content="Error Field" HorizontalAlignment="Left" Margin="30,70,0,0" VerticalAlignment="Top" Foreground="Red"/>
+        <Label x:Name="lbl_ErrorItemDescr" Content="Error Field" HorizontalAlignment="Left" Margin="30,130,0,0" VerticalAlignment="Top" Foreground="Red"/>
+        <Label x:Name="lbl_ErrorItemPrice" Content="Error Field" HorizontalAlignment="Left" Margin="30,190,0,0" VerticalAlignment="Top" Foreground="Red"/>
 
         <Button x:Name="btn_AddItem" Content="Add Item" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_AddItem_Click"/>
         <Button x:Name="btn_EditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="160,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_EditItem_Click"/>
         <Button x:Name="btn_DeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="290,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_DeleteItem_Click"/>
         <Button x:Name="btn_SaveItem" Content="Save Item" HorizontalAlignment="Left" Margin="160,100,0,0" VerticalAlignment="Top" Grid.Row="1" IsEnabled="False" Click="btn_SaveItem_Click"/>
 
-        <DataGrid x:Name="dataGrid_DisplayItems" 
-          AutoGenerateColumns="False" 
-          CanUserAddRows="False" 
-          Margin="10,10,10,17"
-          ColumnWidth="*"
-          Grid.Column="1" Grid.RowSpan="2"
-                  >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Item Code" Binding="{Binding sItemCode}" Width="*" />
-                <DataGridTextColumn Header="Description" Binding="{Binding sItemDescription}" Width="*" />
-                <DataGridTextColumn Header="Cost" Binding="{Binding sItemCost}" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <DataGrid x:Name="dataGrid_DisplayItems" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <Button x:Name="btn_BackToHome" Content="Home" HorizontalAlignment="Left" Margin="30,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_BackToHome_Click"/>
-        <Button x:Name="btn_CancelItem" Content="Cancel" HorizontalAlignment="Left" Margin="290,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_CancelItem_Click"/>
 
 
     </Grid>
