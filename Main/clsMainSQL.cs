@@ -10,8 +10,23 @@ namespace GroupProject.Main
     class clsMainSQL
     {
 
-        //- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
-
+        /// <summary>
+        /// Updates the Invoices table with the total cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <param name="sTotalCost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string UpdateInvoices(string sInvoiceNum, string sTotalCost)
+        {
+            try
+            {
+                string sSQL = "UPDATE Invoices SET TotalCost = " + sTotalCost.Replace(",", "") + " WHERE InvoiceNum = " + sInvoiceNum;
+                return sSQL;
+            }
+            catch (Exception ex)
+            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
         /// <summary>
         /// Inserts InvoiceNum, LineItemNum, ItemCode into LineItems table
         /// </summary>

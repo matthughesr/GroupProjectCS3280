@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Windows.Controls.Primitives;
+using System.Reflection;
 
 
 /// CONTAINS ALL SQL STATEMENTS RELATED TO SEARCHING THE DATABASE
@@ -64,7 +65,12 @@ namespace GroupProject.Search
 
             return query;
         }
-
+        /// <summary>
+        /// A method the returns data via Invoice and Date
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="Date"></param>
+        /// <returns></returns>
         public static string searchViaInvoiceAndDate(string invoiceNumber, string Date)
         {
             string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date}";
@@ -72,7 +78,13 @@ namespace GroupProject.Search
             return query;
 
         }
-
+        /// <summary>
+        /// Method that returns a query based on Date and Cost
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="Date"></param>
+        /// <param name="Cost"></param>
+        /// <returns></returns>
         public static string searchViaInvoiceDateAndCost(string invoiceNumber, string Date, string Cost) 
         {
             string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date} AND TotalCost = {Cost}";
@@ -80,13 +92,21 @@ namespace GroupProject.Search
             return query;
 
         }
-
+        /// <summary>
+        /// Method that returns a query based on cost
+        /// </summary>
+        /// <param name="Cost"></param>
+        /// <returns></returns>
         public static string searchViaCost(string Cost)
         {
             string query = @$"SELECT * FROM Invoices WHERE TotalCost = {Cost}";
             return query;
         }
-
+        /// <summary>
+        /// Method that returns a query based on date
+        /// </summary>
+        /// <param name="Date"></param>
+        /// <returns></returns>
         public static string searchViaDate(string Date)
         {
             string query = @$"SELECT * From Invoices WHERE InvoiceDate = {Date}";
@@ -124,9 +144,10 @@ namespace GroupProject.Search
 
                 return baseQuery;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
     }
