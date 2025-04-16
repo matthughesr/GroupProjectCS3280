@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Windows.Controls.Primitives;
+using System.Reflection;
 
 
 /// CONTAINS ALL SQL STATEMENTS RELATED TO SEARCHING THE DATABASE
@@ -143,9 +144,10 @@ namespace GroupProject.Search
 
                 return baseQuery;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
     }

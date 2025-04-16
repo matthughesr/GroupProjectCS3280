@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,28 +39,38 @@ namespace GroupProject.Search
         /// <param name="e"></param>
         private void wndSearch_Load(object sender, EventArgs e)
         {
-            // Populate the data grid
-            List<clsInvoice> invoiceList = new List<clsInvoice>();
-            invoiceList = clsSearchLogic.getInvoices();
 
-            dgInvoice.ItemsSource = invoiceList;
+            try
+            {
+                // Populate the data grid
+                List<clsInvoice> invoiceList = new List<clsInvoice>();
+                invoiceList = clsSearchLogic.getInvoices();
 
-            // Populate the Invoice Number Combo Box
-            List<clsInvoice> invoiceNumber = new List<clsInvoice>();
-            invoiceNumber = clsSearchLogic.getInvoiceNumbers();
+                dgInvoice.ItemsSource = invoiceList;
 
-            invoiceNumberCB.ItemsSource = invoiceNumber;
+                // Populate the Invoice Number Combo Box
+                List<clsInvoice> invoiceNumber = new List<clsInvoice>();
+                invoiceNumber = clsSearchLogic.getInvoiceNumbers();
 
-            // Populate the Invoice Date Combo Box
-            List<clsInvoice> invoiceDate = new List<clsInvoice>();
-            invoiceDate = clsSearchLogic.getInvoiceDate();
+                invoiceNumberCB.ItemsSource = invoiceNumber;
 
-            invoiceDateCB.ItemsSource = invoiceDate;
-            // Populate the Total Cost Combo Box
-            List<clsInvoice> invoiceCost = new List<clsInvoice>();
-            invoiceCost = clsSearchLogic.getInvoiceCost();
+                // Populate the Invoice Date Combo Box
+                List<clsInvoice> invoiceDate = new List<clsInvoice>();
+                invoiceDate = clsSearchLogic.getInvoiceDate();
 
-            invoiceCostCB.ItemsSource = invoiceCost;
+                invoiceDateCB.ItemsSource = invoiceDate;
+                // Populate the Total Cost Combo Box
+                List<clsInvoice> invoiceCost = new List<clsInvoice>();
+                invoiceCost = clsSearchLogic.getInvoiceCost();
+
+                invoiceCostCB.ItemsSource = invoiceCost;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -69,8 +80,17 @@ namespace GroupProject.Search
         /// <param name="e"></param>
         private void cancelButtonInvoice_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
 
-            this.Close();
+            }
+           
         }
 
         /// <summary>
@@ -80,14 +100,24 @@ namespace GroupProject.Search
         /// <param name="e"></param>
         private void searchViaFilters(object sender, SelectionChangedEventArgs e)
         {
-            string invoiceNumber = invoiceNumberCB.SelectedItem?.ToString();
-            string invoiceDate = invoiceDateCB.SelectedItem?.ToString();
-            string invoiceCost = invoiceCostCB.SelectedItem?.ToString();
+            try
+            {
+                string invoiceNumber = invoiceNumberCB.SelectedItem?.ToString();
+                string invoiceDate = invoiceDateCB.SelectedItem?.ToString();
+                string invoiceCost = invoiceCostCB.SelectedItem?.ToString();
 
-            List<clsInvoice> clsInvoiceSearchViaFilters = new List<clsInvoice>();
-            clsInvoiceSearchViaFilters = clsSearchLogic.searchViaFilters(invoiceNumber, invoiceDate, invoiceCost);
+                List<clsInvoice> clsInvoiceSearchViaFilters = new List<clsInvoice>();
+                clsInvoiceSearchViaFilters = clsSearchLogic.searchViaFilters(invoiceNumber, invoiceDate, invoiceCost);
 
-            dgInvoice.ItemsSource = clsInvoiceSearchViaFilters;
+                dgInvoice.ItemsSource = clsInvoiceSearchViaFilters;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -103,10 +133,11 @@ namespace GroupProject.Search
                 invoiceDateCB.SelectedIndex = -1;
                 invoiceCostCB.SelectedIndex = -1;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         /// <summary>
@@ -134,10 +165,11 @@ namespace GroupProject.Search
 
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
         }

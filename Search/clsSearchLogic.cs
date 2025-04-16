@@ -7,6 +7,7 @@ using System.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 
 /// ALL BUSINESS LOGIC BEHIND SEARCHING THE DATABASES AND RETURNING VALUES
 namespace GroupProject.Search
@@ -46,10 +47,11 @@ namespace GroupProject.Search
 
                 return invoiceList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -82,10 +84,11 @@ namespace GroupProject.Search
 
                 return invoiceList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -118,10 +121,11 @@ namespace GroupProject.Search
 
                 return invoiceList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -154,10 +158,11 @@ namespace GroupProject.Search
 
                 return invoiceList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         
@@ -196,25 +201,14 @@ namespace GroupProject.Search
 
                 return invoiceList;
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        private void HandleError(string sClass, string sMethod, string sMessage)
-        {
-            try
-            {
-                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
-            }
             catch (Exception ex)
             {
 
-                // throw;
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); 
             }
         }
+
     }
 
 
