@@ -160,7 +160,14 @@ namespace GroupProject.Search
                 throw;
             }
         }
-
+        
+        /// <summary>
+        /// Function that executes a SQl query based on the filters selected in the search window
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="invoiceDate"></param>
+        /// <param name="invoiceCost"></param>
+        /// <returns></returns>
         public static List<clsInvoice> searchViaFilters(string invoiceNumber = null, string invoiceDate = null, string invoiceCost = null)
         {
             try

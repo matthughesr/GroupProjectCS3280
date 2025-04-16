@@ -13,19 +13,25 @@
             <RowDefinition Height="174*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="237*"/>
-            <ColumnDefinition Width="563*"/>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="21*"/>
         </Grid.ColumnDefinitions>
-        <Menu Margin="0,0,10,10">
+        <Menu x:Name="menuBar" Margin="0,0,10,10">
             <MenuItem Header="Update Items" Click="MenuItem_Click"></MenuItem>
-            <MenuItem Header="Search for Invoice" Click="openSearchWindow"></MenuItem>
+            <MenuItem Header="Search for Invoice" Click="openSearchWindow" Width="151"></MenuItem>
 
         </Menu>
-        <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0" SelectionChanged="dgInvoice_SelectionChanged"/>
-        <Button x:Name="btnCreateInvoice" Grid.Column="1" Content="Create Invoice" HorizontalAlignment="Left" Margin="47,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="btnCreateInvoice_Click"/>
-        <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="217,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnEditInvoice_Click"/>
-        <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="397,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="80" Click="btnSaveInvoice_Click"/>
-        <Label x:Name="lblTitle" Content="C# Landscaping" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="217" Background="#FF4A753B" Foreground="White" FontSize="20" HorizontalContentAlignment="Center"/>
+        <DataGrid x:Name="dgInvoice" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,7,0,0" SelectionChanged="dgInvoice_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding sItemCode}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding sItemDescription}" />
+                <DataGridTextColumn Header="Cost" Binding="{Binding sItemCost}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnCreateInvoice" Grid.Column="1" Content="Create Invoice" HorizontalAlignment="Left" Margin="47,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="btnCreateInvoice_Click" Height="30" Width="90"/>
+        <Button x:Name="btnEditInvoice" Grid.Column="1" Content="Edit Invoice" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="90" Click="btnEditInvoice_Click" Height="30"/>
+        <Button x:Name="btnSaveInvoice" Grid.Column="1" Content="Save Invoice" HorizontalAlignment="Left" Margin="287,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="90" Click="btnSaveInvoice_Click" Height="30"/>
+        <Label x:Name="lblTitle" Content="C# Landscaping" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="216" Background="#FFF4F5F3" Foreground="#FF131313" FontSize="20" HorizontalContentAlignment="Center" Height="26"/>
         <GroupBox x:Name="gbInvoiceInfo" Header="Invoice Info" Grid.Row="2" Margin="0,5,0,5">
             <Grid x:Name="gridGroupBoxInvoice">
                 <Grid.RowDefinitions>
@@ -51,6 +57,8 @@
                 <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="13,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnAddItem_Click"/>
             </Grid>
         </GroupBox>
+        <Label x:Name="lblMessage" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357" FontSize="15" Height="20"/>
+        <Button x:Name="btnCancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="415,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="-0.051,0.233" Width="90" Click="btnCancel_Click" Height="30"/>
 
 
 

@@ -64,7 +64,12 @@ namespace GroupProject.Search
 
             return query;
         }
-
+        /// <summary>
+        /// A method the returns data via Invoice and Date
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="Date"></param>
+        /// <returns></returns>
         public static string searchViaInvoiceAndDate(string invoiceNumber, string Date)
         {
             string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date}";
@@ -72,7 +77,13 @@ namespace GroupProject.Search
             return query;
 
         }
-
+        /// <summary>
+        /// Method that returns a query based on Date and Cost
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        /// <param name="Date"></param>
+        /// <param name="Cost"></param>
+        /// <returns></returns>
         public static string searchViaInvoiceDateAndCost(string invoiceNumber, string Date, string Cost) 
         {
             string query = @$"SELECT * FROM Invoices WHERE InvoiceNum = {invoiceNumber} AND InvoiceDate = {Date} AND TotalCost = {Cost}";
@@ -80,13 +91,21 @@ namespace GroupProject.Search
             return query;
 
         }
-
+        /// <summary>
+        /// Method that returns a query based on cost
+        /// </summary>
+        /// <param name="Cost"></param>
+        /// <returns></returns>
         public static string searchViaCost(string Cost)
         {
             string query = @$"SELECT * FROM Invoices WHERE TotalCost = {Cost}";
             return query;
         }
-
+        /// <summary>
+        /// Method that returns a query based on date
+        /// </summary>
+        /// <param name="Date"></param>
+        /// <returns></returns>
         public static string searchViaDate(string Date)
         {
             string query = @$"SELECT * From Invoices WHERE InvoiceDate = {Date}";

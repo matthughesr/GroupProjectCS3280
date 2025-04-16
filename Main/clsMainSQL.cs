@@ -9,7 +9,33 @@ namespace GroupProject.Main
 {
     class clsMainSQL
     {
-    public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
+
+        /// <summary>
+        /// Updates the Invoices table with the total cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <param name="sTotalCost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string UpdateInvoices(string sInvoiceNum, string sTotalCost)
+        {
+            try
+            {
+                string sSQL = "UPDATE Invoices SET TotalCost = " + sTotalCost.Replace(",", "") + " WHERE InvoiceNum = " + sInvoiceNum;
+                return sSQL;
+            }
+            catch (Exception ex)
+            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+        /// <summary>
+        /// Inserts InvoiceNum, LineItemNum, ItemCode into LineItems table
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <param name="sLineItemNum"></param>
+        /// <param name="sItemCode"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string InsertLineItems(string sInvoiceNum, string sLineItemNum, string sItemCode)
     {
             try
             {
@@ -23,6 +49,13 @@ namespace GroupProject.Main
        }
 
 
+        /// <summary>
+        /// Inserts InvoiceDate and TotalCost into Invoices table
+        /// </summary>
+        /// <param name="sInvoiceDate"></param>
+        /// <param name="sTotalCost"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string InsertInvoices(string sInvoiceDate, string sTotalCost)
         {
             try
@@ -36,6 +69,12 @@ namespace GroupProject.Main
 
         }
 
+        /// <summary>
+        /// Selects invoice by number. This is used to get the invoice number, date, and total cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectInvoiceByNumber(string sInvoiceNum)
         {
             try
@@ -48,6 +87,11 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Selects all items from ItemDesc table
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectAllItem()
         {
             try
@@ -60,6 +104,12 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Selects  LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string SelectLineItems(string sInvoiceNum)
         {
             try
@@ -74,6 +124,12 @@ namespace GroupProject.Main
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Deletes Line items by invoice number
+        /// </summary>
+        /// <param name="sInvoiceNum"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string DeleteLineItemsByInvoice(string sInvoiceNum)
         {
             try
@@ -95,7 +151,8 @@ namespace GroupProject.Main
 }
 
 
-/*- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
+/*
+- UPDATE Invoices SET TotalCost = 1200 WHERE InvoiceNum = 123
 - INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (123, 1, 'AA')
 - INSERT INTO Invoices (InvoiceDate, TotalCost) Values (#4/13/2018#, 100)
 - SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = 123

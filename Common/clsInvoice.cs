@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace GroupProject.Common
         /// <summary>
         /// Public property for invoice number
         /// </summary>
-        public string sInvoiceNum {  get; set; }
+        public string sInvoiceNum { get; set; }
 
         /// <summary>
         /// Public Property for invoice number
@@ -26,8 +27,13 @@ namespace GroupProject.Common
         /// <summary>
         /// public property of all items on invoice 
         /// </summary>
-        public List<clsInvoice> Items { get; set; }
+        public ObservableCollection<clsItem> Items { get; set; }
 
+
+        /// <summary>
+        /// Override to string method for clsInvoice
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"NUMBER: {sInvoiceNum}, DATE: {sInvoiceDate}, COST: {sTotalCost}";
