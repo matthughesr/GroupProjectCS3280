@@ -16,9 +16,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Item Code:" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top"/>
-        <Label Content="Item Description:" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top"/>
-        <Label Content="Item Price:" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top"/>
+        <Label Content="Item Code:" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Foreground="Black"/>
+        <Label Content="Item Description:" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Foreground="Black"/>
+        <Label Content="Item Price:" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top" Foreground="Black"/>
         <TextBox x:Name="txtBox_ItemCode" HorizontalAlignment="Left" Margin="180,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
         <TextBox x:Name="txtBox_ItemDescr" HorizontalAlignment="Left" Margin="180,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
         <TextBox x:Name="txtBox_ItemPrice" HorizontalAlignment="Left" Margin="180,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
