@@ -209,6 +209,45 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Function that restricts the Cost CB to reflect costs that are within the date range selected
+        /// </summary>
+        /// <param name="invoiceDate"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static List<clsInvoice> restrictCosts(string invoiceDate)
+        {
+            try
+            {
+                List<clsInvoice> invoiceList = new List<clsInvoice>();
+                clsDataAccess db = new clsDataAccess();
+
+                int iRet = 0;
+
+                string sqlQuery = clsSearchSQL.restrictCosts(invoiceDate);
+
+                DataSet ds = db.ExecuteSQLStatement(sqlQuery, ref iRet);
+
+                for (int i = 0; i < iRet; i++)
+                {
+                    clsInvoice invoiceItems = new clsInvoice
+                    {
+                        totalCost = ds.Tables[0].Rows[i]["TotalCost"].ToString()
+                    };
+
+                    invoiceList.Add(invoiceItems);
+                }
+
+                return invoiceList;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
     }
 
 
