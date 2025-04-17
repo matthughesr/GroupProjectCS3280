@@ -106,6 +106,12 @@ namespace GroupProject.Search
                 string invoiceDate = invoiceDateCB.SelectedItem?.ToString();
                 string invoiceCost = invoiceCostCB.SelectedItem?.ToString();
 
+                if (invoiceNumber != null)
+                {
+                    invoiceDateCB.IsEnabled = false;
+                    invoiceCostCB.IsEnabled = false;
+                }
+
                 List<clsInvoice> clsInvoiceSearchViaFilters = new List<clsInvoice>();
                 clsInvoiceSearchViaFilters = clsSearchLogic.searchViaFilters(invoiceNumber, invoiceDate, invoiceCost);
 
@@ -132,6 +138,9 @@ namespace GroupProject.Search
                 invoiceNumberCB.SelectedIndex = -1;
                 invoiceDateCB.SelectedIndex = -1;
                 invoiceCostCB.SelectedIndex = -1;
+
+                invoiceCostCB.IsEnabled = true;
+                invoiceDateCB.IsEnabled = true;
             }
             catch (Exception ex)
             {

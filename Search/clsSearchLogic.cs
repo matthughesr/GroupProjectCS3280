@@ -105,7 +105,7 @@ namespace GroupProject.Search
 
                 int iRet = 0;
 
-                string sqlQuery = clsSearchSQL.viewInvoices();
+                string sqlQuery = clsSearchSQL.searchViaDate();
 
                 DataSet ds = db.ExecuteSQLStatement(sqlQuery, ref iRet);
 
@@ -142,7 +142,7 @@ namespace GroupProject.Search
 
                 int iRet = 0;
 
-                string sqlQuery = clsSearchSQL.viewInvoices();
+                string sqlQuery = clsSearchSQL.searchViaCost();
 
                 DataSet ds = db.ExecuteSQLStatement(sqlQuery, ref iRet);
 

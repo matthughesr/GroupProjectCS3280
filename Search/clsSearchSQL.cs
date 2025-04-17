@@ -97,9 +97,9 @@ namespace GroupProject.Search
         /// </summary>
         /// <param name="Cost"></param>
         /// <returns></returns>
-        public static string searchViaCost(string Cost)
+        public static string searchViaCost()
         {
-            string query = @$"SELECT * FROM Invoices WHERE TotalCost = {Cost}";
+            string query = @$"SELECT DISTINCT i.TotalCost FROM Invoices i";
             return query;
         }
         /// <summary>
@@ -107,9 +107,9 @@ namespace GroupProject.Search
         /// </summary>
         /// <param name="Date"></param>
         /// <returns></returns>
-        public static string searchViaDate(string Date)
+        public static string searchViaDate()
         {
-            string query = @$"SELECT * From Invoices WHERE InvoiceDate = {Date}";
+            string query = @$"SELECT DISTINCT i.InvoiceDate From Invoices i";
 
             return query;
         }
