@@ -290,9 +290,6 @@ namespace GroupProject.Items
         /// <param name="e">The event data.</param>
         private void btn_BackToHome_Click(object sender, RoutedEventArgs e)
         {
-            // Set the DialogResult to indicate whether the items table was updated
-            this.DialogResult = ItemsTableUpdated;
-
             // Close the current Items window
             this.Close();
         }
