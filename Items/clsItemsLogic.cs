@@ -8,6 +8,7 @@ using GroupProject.Search;
 using System.Data;
 using GroupProject.Common;
 using System.Reflection;
+using System.Windows;
 
 namespace GroupProject.Items
 {
@@ -59,14 +60,26 @@ namespace GroupProject.Items
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
         /// <summary>
         /// Adds a new item to the database.
         /// </summary>
-        /// <param name="newItem">The item to be added.</param>
+        /// <param name="newItem"></param>
+        /// <exception cref="Exception"></exception>
         public static void AddItem(clsItem newItem)
         {
             try
             {
+                // Retrieve all existing items
+                List<clsItem> existingItems = RetrieveAllItems();
+
+                // Check if the new item's code already exists
+                if (existingItems.Any(item => item.sItemCode == newItem.sItemCode))
+                {
+                    MessageBox.Show("Item code already exists.");
+                    return;
+                }
+
                 // Create an instance of clsItemsSQL to get the SQL query
                 clsItemsSQL sSQL = new clsItemsSQL();
                 string query = sSQL.insertIntoItemDescrTable(newItem.sItemCode, newItem.sItemDescription, newItem.sItemCost);

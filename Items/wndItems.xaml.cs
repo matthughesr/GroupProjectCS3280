@@ -227,6 +227,13 @@ namespace GroupProject.Items
         {
             try
             {
+                if(string.IsNullOrWhiteSpace(txtBox_ItemCode.Text) ||
+                    string.IsNullOrWhiteSpace(txtBox_ItemDescr.Text) ||
+                    string.IsNullOrWhiteSpace(txtBox_ItemPrice.Text))
+                {
+                    MessageBox.Show("Please fill in all fields.");
+                    return;
+                }
                 // Create a new clsItem object with the data from the text boxes
                 clsItem newItem = new clsItem
                 {
@@ -239,7 +246,7 @@ namespace GroupProject.Items
                 if (txtBox_ItemCode.IsEnabled) // Adding a new item
                 {
                     clsItemsLogic.AddItem(newItem);
-                    MessageBox.Show("Item added successfully.");
+                    //MessageBox.Show("Item added successfully.");
                 }
                 else // Editing an existing item
                 {
@@ -264,6 +271,10 @@ namespace GroupProject.Items
                 txtBox_ItemCode.IsEnabled = false;
                 txtBox_ItemDescr.IsEnabled = false;
                 txtBox_ItemPrice.IsEnabled = false;
+                btn_DeleteItem.IsEnabled = true; // Enable Delete button
+                btn_AddItem.IsEnabled = true; // Enable Add button
+                btn_EditItem.IsEnabled = true; // Enable Edit button
+                btn_SaveItem.IsEnabled = false; // Disable Save button
             }
             catch (Exception ex)
             {
