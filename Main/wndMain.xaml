@@ -57,7 +57,7 @@
                 <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="13,14,0,0" Grid.Row="5" VerticalAlignment="Top" Click="btnAddItem_Click"/>
             </Grid>
         </GroupBox>
-        <Label x:Name="lblMessage" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357" FontSize="15" Height="20"/>
+        <Label x:Name="lblMessage" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="357" FontSize="15" Height="20" Foreground="#FF121111"/>
         <Button x:Name="btnCancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="415,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="-0.051,0.233" Width="90" Click="btnCancel_Click" Height="30"/>
 
 
