@@ -324,6 +324,9 @@ namespace GroupProject.Items
                 txtBox_ItemDescr.IsEnabled = false;
                 txtBox_ItemPrice.IsEnabled = false;
                 btn_SaveItem.IsEnabled = false;
+                btn_DeleteItem.IsEnabled = true; // Enable Delete button
+                btn_AddItem.IsEnabled = true; // Enable Add button
+                btn_EditItem.IsEnabled = true; // Enable Edit button
 
                 // deselect any selected item in the DataGrid
                 dataGrid_DisplayItems.SelectedItem = null;
