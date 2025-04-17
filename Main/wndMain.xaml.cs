@@ -284,7 +284,7 @@ namespace GroupProject.Main
                 {
                     gbInvoiceInfo.IsEnabled = false;  // Lock down window so no more changes can be made
                     lblMessage.Content = "Invoice Saved";
-                    lblMessage.Background = System.Windows.Media.Brushes.Green; // Change background color to green
+                    //lblMessage.Background = System.Windows.Media.Brushes.Green; // Change background color to green
                     btnSaveInvoice.IsEnabled = false; // Disable save button
                     menuBar.IsEnabled = true;
                     btnEditInvoice.IsEnabled = true;

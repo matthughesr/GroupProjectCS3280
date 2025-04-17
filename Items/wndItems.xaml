@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Items"
         mc:Ignorable="d"
-        Title="wndItems" Height="600" Width="800">
+        Title="Item Window" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,17 +16,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Item Code:" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Foreground="Black"/>
-        <Label Content="Item Description:" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Foreground="Black"/>
-        <Label Content="Item Price:" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top" Foreground="Black"/>
+        <Label Content="Item Code:" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>
+        <Label Content="Item Description:" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>
+        <Label Content="Item Price:" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>
         <TextBox x:Name="txtBox_ItemCode" HorizontalAlignment="Left" Margin="180,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
         <TextBox x:Name="txtBox_ItemDescr" HorizontalAlignment="Left" Margin="180,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
         <TextBox x:Name="txtBox_ItemPrice" HorizontalAlignment="Left" Margin="180,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" PreviewKeyDown="txtLetterInput_PreviewKeyDown"/>
 
-        <Button x:Name="btn_AddItem" Content="Add Item" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_AddItem_Click"/>
-        <Button x:Name="btn_EditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="160,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_EditItem_Click"/>
-        <Button x:Name="btn_DeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="290,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_DeleteItem_Click"/>
-        <Button x:Name="btn_SaveItem" Content="Save Item" HorizontalAlignment="Left" Margin="160,100,0,0" VerticalAlignment="Top" Grid.Row="1" IsEnabled="False" Click="btn_SaveItem_Click"/>
+        <Button x:Name="btn_AddItem" Content="Add Item" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_AddItem_Click" Height="35" Width="75" FontSize="14"/>
+        <Button x:Name="btn_EditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="160,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_EditItem_Click" Height="35" Width="75" FontSize="14"/>
+        <Button x:Name="btn_DeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="290,40,0,0" VerticalAlignment="Top" Grid.Row="1" Click="btn_DeleteItem_Click" Height="35" Width="75" FontSize="14"/>
+        <Button x:Name="btn_SaveItem" Content="Save Item" HorizontalAlignment="Left" Margin="160,100,0,0" VerticalAlignment="Top" Grid.Row="1" IsEnabled="False" Click="btn_SaveItem_Click" Height="35" Width="75" FontSize="14"/>
 
         <DataGrid x:Name="dataGrid_DisplayItems" 
           AutoGenerateColumns="False" 
@@ -41,8 +41,8 @@
                 <DataGridTextColumn Header="Cost" Binding="{Binding sItemCost}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btn_BackToHome" Content="Home" HorizontalAlignment="Left" Margin="30,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_BackToHome_Click"/>
-        <Button x:Name="btn_CancelItem" Content="Cancel" HorizontalAlignment="Left" Margin="290,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_CancelItem_Click"/>
+        <Button x:Name="btn_BackToHome" Content="Home" HorizontalAlignment="Left" Margin="30,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_BackToHome_Click" Height="35" Width="75" FontSize="14"/>
+        <Button x:Name="btn_CancelItem" Content="Cancel" HorizontalAlignment="Left" Margin="290,160,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btn_CancelItem_Click" Height="35" Width="75" FontSize="14"/>
 
 
     </Grid>

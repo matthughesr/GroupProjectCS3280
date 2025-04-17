@@ -35,9 +35,6 @@ namespace GroupProject.Items
             LoadItems();
         }
 
-        // bool bHasItemChanged; // set to true when item has been added/edited/delted. Used by main window to know if it needs to refresh items list
-        // bool bhasItemsBeenChanged; // property
-
         /// <summary>
         /// Loads all items into the DataGrid.
         /// </summary>
@@ -67,8 +64,8 @@ namespace GroupProject.Items
                     // Check if the TextBox is for Item Description
                     if (textBox.Name == "txtBox_ItemDescr")
                     {
-                        // Allow only up to 50 characters
-                        if (textBox.Text.Length >= 50 && !(e.Key == Key.Back || e.Key == Key.Delete))
+                        // Allow only up to 35 characters
+                        if (textBox.Text.Length >= 35 && !(e.Key == Key.Back || e.Key == Key.Delete))
                         {
                             e.Handled = true;
                         }
@@ -76,12 +73,12 @@ namespace GroupProject.Items
                     // Check if the TextBox is for Item Code
                     else if (textBox.Name == "txtBox_ItemCode")
                     {
-                        // Allow only letters and up to 3 characters
+                        // Allow only letters and up to 10 characters
                         if (!(e.Key >= Key.A && e.Key <= Key.Z) && !(e.Key == Key.Back || e.Key == Key.Delete))
                         {
                             e.Handled = true;
                         }
-                        else if (textBox.Text.Length >= 3 && !(e.Key == Key.Back || e.Key == Key.Delete))
+                        else if (textBox.Text.Length >= 10 && !(e.Key == Key.Back || e.Key == Key.Delete))
                         {
                             e.Handled = true;
                         }
@@ -94,6 +91,10 @@ namespace GroupProject.Items
                             !(e.Key == Key.Back || e.Key == Key.Delete))
                         {
                             e.Handled = true;
+                        } else if (textBox.Text.Length >= 10 && !(e.Key == Key.Back || e.Key == Key.Delete))
+                        {
+                            e.Handled = true;
+                           
                         }
                     }
                 }
@@ -227,6 +228,13 @@ namespace GroupProject.Items
         {
             try
             {
+                if(string.IsNullOrWhiteSpace(txtBox_ItemCode.Text) ||
+                    string.IsNullOrWhiteSpace(txtBox_ItemDescr.Text) ||
+                    string.IsNullOrWhiteSpace(txtBox_ItemPrice.Text))
+                {
+                    MessageBox.Show("Please fill in all fields.");
+                    return;
+                }
                 // Create a new clsItem object with the data from the text boxes
                 clsItem newItem = new clsItem
                 {
@@ -239,7 +247,7 @@ namespace GroupProject.Items
                 if (txtBox_ItemCode.IsEnabled) // Adding a new item
                 {
                     clsItemsLogic.AddItem(newItem);
-                    MessageBox.Show("Item added successfully.");
+                    //MessageBox.Show("Item added successfully.");
                 }
                 else // Editing an existing item
                 {
@@ -264,6 +272,10 @@ namespace GroupProject.Items
                 txtBox_ItemCode.IsEnabled = false;
                 txtBox_ItemDescr.IsEnabled = false;
                 txtBox_ItemPrice.IsEnabled = false;
+                btn_DeleteItem.IsEnabled = true; // Enable Delete button
+                btn_AddItem.IsEnabled = true; // Enable Add button
+                btn_EditItem.IsEnabled = true; // Enable Edit button
+                btn_SaveItem.IsEnabled = false; // Disable Save button
             }
             catch (Exception ex)
             {
@@ -279,9 +291,6 @@ namespace GroupProject.Items
         /// <param name="e">The event data.</param>
         private void btn_BackToHome_Click(object sender, RoutedEventArgs e)
         {
-            // Set the DialogResult to indicate whether the items table was updated
-            this.DialogResult = ItemsTableUpdated;
-
             // Close the current Items window
             this.Close();
         }
@@ -324,6 +333,9 @@ namespace GroupProject.Items
                 txtBox_ItemDescr.IsEnabled = false;
                 txtBox_ItemPrice.IsEnabled = false;
                 btn_SaveItem.IsEnabled = false;
+                btn_DeleteItem.IsEnabled = true; // Enable Delete button
+                btn_AddItem.IsEnabled = true; // Enable Add button
+                btn_EditItem.IsEnabled = true; // Enable Edit button
 
                 // deselect any selected item in the DataGrid
                 dataGrid_DisplayItems.SelectedItem = null;
