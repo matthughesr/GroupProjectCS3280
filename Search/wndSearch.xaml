@@ -25,11 +25,11 @@
             <!-- SEARCH FILTERS -->
             <GroupBox x:Name="invoiceGroupBox" Grid.Row="1" Margin="5,30" Background="GhostWhite" IsEnabled="True" Opacity="100" Visibility="Visible">
                 <StackPanel>
-                    <Label x:Name="invoiceNumberLabel" Content="Invoice Number:"/>
+                    <Label x:Name="invoiceNumberLabel" Content="Invoice Number:" Foreground="Black"/>
                     <ComboBox x:Name="invoiceNumberCB" Width="auto" Margin="10" SelectionChanged="searchViaFilters" />
-                    <Label x:Name="invoiceDateLabel" Content="Invoice Date:"/>
+                    <Label x:Name="invoiceDateLabel" Content="Invoice Date:" Foreground="Black"/>
                     <ComboBox x:Name="invoiceDateCB" Width="auto" Margin="10" SelectionChanged="searchViaFilters" />
-                    <Label x:Name="invoiceCostLabel" Content="Invoice Cost:"/>
+                    <Label x:Name="invoiceCostLabel" Content="Invoice Cost:" Foreground="Black"/>
                     <ComboBox x:Name="invoiceCostCB" Width="auto" Margin="10" SelectionChanged="searchViaFilters" />
                     <Button x:Name="selectButtonInvoice" Content="Select Invoice" Margin="10,4" HorizontalAlignment="Stretch" Click="invoiceSelected"/>
                     <Button x:Name="clearFiltersButton" Content="Clear Filters" Margin="10,4" HorizontalAlignment="Stretch" Click="clearFilters"/>
@@ -47,7 +47,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Label Content="Search Results" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50"/>
+            <Label Content="Search Results" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50" Foreground="Black"/>
 
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
