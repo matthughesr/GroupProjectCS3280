@@ -143,6 +143,8 @@ namespace GroupProject.Main
                 itemsWindow.ShowDialog();
                 this.Show();
                 //Refresh items combo box.
+                cbItems.ItemsSource = clsGetItems.GetAllItems(); //bind combo box to getItems
+
 
 
             }
