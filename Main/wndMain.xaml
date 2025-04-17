@@ -16,7 +16,7 @@
             <ColumnDefinition Width="11*"/>
             <ColumnDefinition Width="21*"/>
         </Grid.ColumnDefinitions>
-        <Menu x:Name="menuBar" Margin="0,0,10,10">
+        <Menu x:Name="menuBar" Margin="0,0,10,0">
             <MenuItem Header="Update Items" Click="MenuItem_Click"></MenuItem>
             <MenuItem Header="Search for Invoice" Click="openSearchWindow" Width="151"></MenuItem>
 
