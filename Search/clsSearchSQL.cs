@@ -150,5 +150,20 @@ namespace GroupProject.Search
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        public static string restrictCosts(string invoiceDate)
+        {
+            try
+            {
+                string sqlQuery = $@"SELECT DISTINCT i.TotalCost FROM Invoices i WHERE i.InvoiceDate = #{invoiceDate}#";
+
+                return sqlQuery;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

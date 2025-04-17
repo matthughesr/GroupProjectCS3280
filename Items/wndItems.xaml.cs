@@ -339,6 +339,7 @@ namespace GroupProject.Items
 
                 // deselect any selected item in the DataGrid
                 dataGrid_DisplayItems.SelectedItem = null;
+
             }
             catch (Exception ex)
             {
