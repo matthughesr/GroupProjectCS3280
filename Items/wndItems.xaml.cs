@@ -119,6 +119,8 @@ namespace GroupProject.Items
             txtBox_ItemPrice.IsEnabled = true;
             btn_SaveItem.IsEnabled = true;
             btn_AddItem.IsEnabled = false; // Disable Add button while adding a new item
+            btn_EditItem.IsEnabled = false; // Disable Edit button while adding a new item
+            btn_DeleteItem.IsEnabled = false; // Disable Delete button while adding a new item
 
             // Clear the text boxes to allow for new input
             txtBox_ItemCode.Text = string.Empty;
@@ -151,6 +153,7 @@ namespace GroupProject.Items
                     btn_SaveItem.IsEnabled = true;
                     btn_AddItem.IsEnabled = false; // Disable Add button while editing
                     btn_EditItem.IsEnabled = false; // Disable Edit button while editing
+                    btn_DeleteItem.IsEnabled = false; // Disable Delete button while editing
                 }
                 else
                 {
