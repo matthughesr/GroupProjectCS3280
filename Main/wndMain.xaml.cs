@@ -331,17 +331,19 @@ namespace GroupProject.Main
             {
                 if(bEditingMode == true || bCreateInvoiceMode == true) //Make sure its in editing mode
                 {
+                    btnRemoveItem.IsEnabled = false; 
 
                     clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
                     if (Invoice.Items.Contains(SelectedItem))
                     {
-                        Invoice.Items.Remove(SelectedItem);
                         Invoice.Items.Remove(SelectedItem);
                         fTotalCost -= float.Parse(SelectedItem.sItemCost);
                         lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
 
                     }
                 }
+                btnRemoveItem.IsEnabled = true;
+
             }
             catch (Exception ex)
             { clsMainLogic.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message); }
@@ -360,9 +362,13 @@ namespace GroupProject.Main
                 if (bCreateInvoiceMode == true || bEditingMode == true) //Make sure its in editing mode
                 {
                     clsItem SelectedItem = (clsItem)cbItems.SelectedItem;
+                    if(SelectedItem != null)
+                    {
                     Invoice.Items.Add(SelectedItem);  // Add item to data grid for viewing
                     fTotalCost += float.Parse(SelectedItem.sItemCost);
                     lblTotalCost.Content = "Total Cost: $" + fTotalCost.ToString();
+                      
+                    }
                 }
             }
             catch (Exception ex)
