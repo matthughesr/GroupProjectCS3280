@@ -28,11 +28,6 @@ namespace GroupProject.Search
         /// </summary>
         public clsInvoice SelectedInvoice { get; private set; }
 
-        /// <summary>
-        /// Public bool to check if you've already restricted costs
-        /// </summary>
-        private bool costsAlreadyRestricted = false;
-
         public wndSearch()
         {
             InitializeComponent();
@@ -118,15 +113,6 @@ namespace GroupProject.Search
                 clsInvoiceSearchViaFilters = clsSearchLogic.searchViaFilters(invoiceNumber, invoiceDate, invoiceCost);
                 dgInvoice.ItemsSource = clsInvoiceSearchViaFilters;
 
-                // If a date is selected we only want the costs CB to show costs relevant to that date
-                if (invoiceDate != null && costsAlreadyRestricted == false) { 
-                    List<clsInvoice> restrictedCosts = new List<clsInvoice>();
-                    restrictedCosts = clsSearchLogic.restrictCosts(invoiceDate);
-                    invoiceCostCB.ItemsSource = restrictedCosts;
-                    costsAlreadyRestricted = true;
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -152,14 +138,6 @@ namespace GroupProject.Search
 
                 invoiceCostCB.IsEnabled = true;
                 invoiceDateCB.IsEnabled = true; 
-
-                // Populate the Total Cost Combo Box
-                List<clsInvoice> invoiceCost = new List<clsInvoice>();
-                invoiceCost = clsSearchLogic.getInvoiceCost();
-
-                invoiceCostCB.ItemsSource = invoiceCost;
-
-                costsAlreadyRestricted = false;
 
             }
             catch (Exception ex)
