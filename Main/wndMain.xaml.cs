@@ -142,8 +142,13 @@ namespace GroupProject.Main
                 this.Hide();
                 itemsWindow.ShowDialog();
                 this.Show();
+
+                if (itemsWindow.ItemsTableUpdated == true)
+                {
                 //Refresh items combo box.
                 cbItems.ItemsSource = clsGetItems.GetAllItems(); //bind combo box to getItems
+
+                }
 
 
 
